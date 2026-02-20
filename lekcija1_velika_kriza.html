@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekcija 1: Velika Ekonomska Kriza</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #c0392b 0%, #8e44ad 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "📉";
+            position: absolute;
+            font-size: 250px;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            transform: rotate(-15deg);
+        }
+        .lesson-badge {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .header h1 { font-size: 2.8em; margin-bottom: 15px; position: relative; z-index: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { font-size: 1.3em; opacity: 0.95; position: relative; z-index: 1; }
+        .content { padding: 50px 40px; }
+        .section { margin-bottom: 60px; }
+        .section h2 { color: #c0392b; font-size: 2.1em; margin-bottom: 25px; border-left: 8px solid #c0392b; padding-left: 20px; }
+        .section h3 { color: #8e44ad; font-size: 1.7em; margin-top: 30px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #e0e0e0; }
+        .intro-box {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white; padding: 35px; border-radius: 15px; margin: 30px 0;
+            font-size: 1.15em; line-height: 1.9;
+            box-shadow: 0 10px 30px rgba(231,76,60,0.3);
+        }
+        .warning-box { background: #fff3cd; border-left: 6px solid #ffc107; padding: 25px; margin: 25px 0; border-radius: 8px; }
+        .warning-box h4 { color: #856404; margin-bottom: 15px; font-size: 1.3em; }
+        .crisis-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin: 30px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white; padding: 25px; border-radius: 15px; text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: transform 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-8px); }
+        .stat-number { font-size: 2.8em; font-weight: bold; display: block; margin-bottom: 10px; }
+        .stat-label { font-size: 1.05em; opacity: 0.95; }
+        .info-box { background: #d1ecf1; border-left: 6px solid #17a2b8; padding: 25px; margin: 25px 0; border-radius: 8px; }
+        .info-box h4 { color: #0c5460; margin-bottom: 15px; font-size: 1.3em; }
+        .success-box { background: #d4edda; border-left: 6px solid #28a745; padding: 25px; margin: 25px 0; border-radius: 8px; }
+        .success-box h4 { color: #155724; margin-bottom: 15px; font-size: 1.3em; }
+        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin: 30px 0; }
+        .comparison-card { background: #f8f9fa; border-radius: 15px; padding: 28px; border: 3px solid #e0e0e0; transition: all 0.3s; }
+        .comparison-card:hover { border-color: #8e44ad; box-shadow: 0 8px 25px rgba(142,68,173,0.2); transform: translateY(-5px); }
+        .comparison-card h4 { color: #8e44ad; font-size: 1.4em; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 3px solid #8e44ad; }
+        .comparison-card ul { list-style: none; padding-left: 0; }
+        .comparison-card li { padding: 9px 0; padding-left: 28px; position: relative; line-height: 1.6; }
+        .comparison-card li:before { content: "→"; position: absolute; left: 0; color: #8e44ad; font-weight: bold; }
+        .person-card {
+            background: white; border: 4px solid #8e44ad; border-radius: 20px;
+            padding: 35px; margin: 30px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: all 0.3s;
+        }
+        .person-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(142,68,173,0.25); }
+        .person-header { display: flex; align-items: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .person-icon { font-size: 5em; margin-right: 25px; }
+        .person-info h3 { color: #8e44ad; font-size: 2.1em; margin: 0 0 8px 0; border: none; padding: 0; }
+        .person-years { color: #666; font-size: 1.2em; font-style: italic; }
+        .person-role { background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%); color: white; padding: 10px 22px; border-radius: 25px; display: inline-block; margin-bottom: 18px; font-weight: bold; }
+        .quote-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-left: 6px solid #f39c12; padding: 28px; margin: 28px 0; border-radius: 10px;
+            font-style: italic; font-size: 1.2em; line-height: 1.9;
+        }
+        .quote-box::before { content: "\201C"; font-size: 4em; color: #f39c12; line-height: 0; display: block; margin-bottom: 15px; }
+        .quote-author { text-align: right; margin-top: 12px; font-style: normal; font-weight: bold; color: #d35400; }
+        .highlight { background: linear-gradient(135deg, #f39c12, #e67e22); color: white; padding: 3px 10px; border-radius: 5px; font-weight: bold; }
+
+        /* KVIZ */
+        .quiz-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 50px 40px; margin-top: 0;
+        }
+        .quiz-section h2 { color: #e94560; font-size: 2.3em; margin-bottom: 10px; text-align: center; }
+        .quiz-subtitle { color: #a8b2d8; text-align: center; margin-bottom: 40px; font-size: 1.15em; }
+        .quiz-question {
+            background: #0f3460; border: 2px solid #1a4a7a; border-radius: 15px;
+            padding: 28px; margin-bottom: 28px; transition: all 0.3s;
+        }
+        .quiz-question:hover { border-color: #e94560; box-shadow: 0 5px 20px rgba(233,69,96,0.2); }
+        .quiz-question h3 { color: #e2e8f0; margin-bottom: 18px; font-size: 1.1em; line-height: 1.6; }
+        .q-number { color: #e94560; font-size: 0.9em; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; }
+        .quiz-options { display: grid; gap: 10px; margin-top: 12px; }
+        .quiz-option {
+            background: #162447; border: 2px solid #1a4a7a; padding: 14px 18px;
+            border-radius: 10px; cursor: pointer; transition: all 0.3s;
+            font-size: 1.02em; color: #e2e8f0;
+        }
+        .quiz-option:hover { background: #1a3a6a; border-color: #e94560; transform: translateX(5px); }
+        .quiz-feedback { display: none; padding: 14px; margin-top: 14px; border-radius: 8px; font-weight: bold; font-size: 1em; }
+        .feedback-correct { background: rgba(40,167,69,0.2); border: 2px solid #28a745; color: #5bdb7a; }
+        .feedback-wrong { background: rgba(220,53,69,0.15); border: 2px solid #dc3545; color: #ff7f8e; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="lesson-badge">📚 Lekcija 1 od 2</div>
+        <h1>Velika Ekonomska Kriza</h1>
+        <p>Od crnog četvrtka 1929. do dolaska Džona Meinarda Kejnza</p>
+    </div>
+
+    <div class="content">
+
+        <!-- UVOD -->
+        <div class="section">
+            <h2>🌍 Uvod – Svet pre krize</h2>
+            <div class="intro-box">
+                <p>Zamislite svet u kome se čini da sve ide savršeno. Amerika 1920-ih je blistala: fabrike rade punim kapacitetom, berza raste iz dana u dan, ljudi kupuju automobile i radio-aparate na kredit, a svi sanjaju o brzom bogaćenju. To je doba nazvano <strong>"Urlajuće dvadesite"</strong> (Roaring Twenties).</p>
+                <br>
+                <p>Ali ispod tog sjaja krio se opasan mehur. Cene akcija na berzi bile su naduvan balon koji nije imao pokriće u stvarnoj vrednosti kompanija. Banke su davale kredite bez dovoljno rezervi. Farmeri su već godinama živeli u bedi. I onda – u jednom trenutku – sve je eksplodiralo.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>🔔 Šta je špekulativni balon?</h4>
+                <p style="line-height:1.8">
+                    <strong>Špekulativni balon</strong> nastaje kada cene neke imovine (akcija, nekretnina...) rastu brže od njihove stvarne vrednosti – uglavnom zbog masovne spekulacije i euforije. Svi kupuju jer se nadaju da će preprodati skuplje. Balon može da raste dugo, ali kada poverenje nestane – <strong>pukne</strong>. Cene naglo padaju, a svi koji su kupili skupo ostaju sa velikim gubicima. Tačno to se desilo na Volstrit 1929. godine.
+                </p>
+            </div>
+        </div>
+
+        <!-- CRNI PETAK -->
+        <div class="section">
+            <h2>💥 Crni četvrtak – 24. oktobar 1929.</h2>
+            <p style="font-size:1.15em; line-height:1.8; margin-bottom:25px;">
+                Dana 24. oktobra 1929. godine – koji je bio <strong>četvrtak</strong> – na Njujorškoj berzi počela je masovna prodaja akcija u panici. Taj dan ušao je u istoriju kao <strong>Crni četvrtak</strong>. Nekoliko dana kasnije, 29. oktobra (tzv. <strong>Crni utorak</strong>), usledio je još dramatičniji pad – izgubljene su milijarde dolara u jednom danu. Ova dva datuma zajedno označavaju početak najveće ekonomske krize u modernoj istoriji. <em>Napomena: izraz "Crni petak" koji se ponekad koristi u popularnoj kulturi za ovaj događaj je pogrešan – 24. oktobar bio je četvrtak!</em>
+            </p>
+
+            <div class="crisis-stats">
+                <div class="stat-card">
+                    <span class="stat-number">1929.</span>
+                    <span class="stat-label">Godina pada Njujorške berze (24. oktobar – "Crni petak")</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">25%</span>
+                    <span class="stat-label">Nezaposlenost u Americi na vrhuncu krize (1933)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">–46%</span>
+                    <span class="stat-label">Pad industrijske proizvodnje u SAD</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">10 god.</span>
+                    <span class="stat-label">Trajanje krize: 1929–1939.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- UZROCI KRIZE -->
+        <div class="section">
+            <h2>🔎 Uzroci Velike Depresije</h2>
+
+            <h3>1. Pucanje špekulativnog balona</h3>
+            <p style="line-height:1.8; margin-bottom:20px;">
+                Tokom 1920-ih, cene akcija su rasle neverovatnom brzinom – ne zato što su kompanije bile vrednije, već zato što su svi kupovali u nadi da će ih skuplje prodati. Kada su investitori izgubili poverenje i počeli da prodaju, balon je pukao. Cene su se srušile za desetine procenata u samo nekoliko dana.
+            </p>
+
+            <h3>2. Prekomerna proizvodnja</h3>
+            <div class="info-box">
+                <h4>📦 Problem hiperprodukcije</h4>
+                <p style="line-height:1.8">
+                    Fabrike su tokom 1920-ih proizvodile sve više robe, ali je kupovna moć radnika ostala ista. Tržište je postepeno bilo prezasićeno – roba se gomilala u skladištima. Kada potrošači više nisu mogli da kupe sve što se proizvodi, <strong>firme su počele da otpuštaju radnike</strong>, što je dalje smanjivalo potrošnju, što je opet dovodilo do novih otpuštanja – začarani krug.
+                </p>
+            </div>
+
+            <h3>3. Bankarski kolaps</h3>
+            <div class="warning-box">
+                <h4>🏦 Domino-efekat banaka</h4>
+                <p style="line-height:1.8">
+                    Banke su pozajmljivale novac špekulantima na berzi bez dovoljno rezervi. Kada je berza pala, kompanije i pojedinci nisu mogli da vrate kredite. <strong>Banke su ostale bez novca.</strong> Tada su građani pohrlili da povuku svoje štednje (tzv. "navala na banke"), što je dovelo do masovnih bankrotstava – u SAD je zatvoreno više od 9.000 banaka! Milioni ljudi su izgubili svu ušteđevinu.
+                </p>
+            </div>
+
+            <h3>4. Širenje krize na Evropu</h3>
+            <div class="info-box">
+                <h4>🌊 Kriza prelazi Atlantik</h4>
+                <p style="line-height:1.8">
+                    Amerika je bila ekonomski centar sveta. Kada je pala, povukla je sa sobom celu planetu. Američki investitori su povlačili kapital iz Evrope, međunarodna trgovina pala je za 30%, a evropske ekonomije su ušle u duboku recesiju. Kriza je postala zaista globalna.
+                </p>
+            </div>
+        </div>
+
+        <!-- RUZVELT I NJU DIL -->
+        <div class="section">
+            <h2>🦅 Franklin D. Ruzvelt i Nju Dil</h2>
+
+            <div class="person-card">
+                <div class="person-header">
+                    <div class="person-icon">🎩</div>
+                    <div class="person-info">
+                        <h3>Franklin Delano Roosevelt</h3>
+                        <div class="person-years">1882–1945 | 32. predsednik SAD (1933–1945)</div>
+                    </div>
+                </div>
+                <div class="person-role">Predsednik koji je spasao Ameriku</div>
+                <p style="font-size:1.1em; line-height:1.8; margin-bottom:18px;">
+                    Kada je Ruzvelt stupio na dužnost 1933. godine, Amerika je bila na kolenima. Umesto da čeka da se "tržište samo uredi", kako su savetovali ekonomisti tog vremena, on je odlučio da <strong>vlada aktivno interveniše</strong>. Taj plan je nazvao <strong>"Nju Dil"</strong> (New Deal – Nova pogodba).
+                </p>
+                <div class="quote-box">
+                    Jedina stvar koje se treba plašiti je sam strah.
+                    <div class="quote-author">– Franklin D. Roosevelt, inauguracioni govor, 1933.</div>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>🎯 Tri glavna cilja Nju Dila (3 R-a)</h4>
+                <ul style="list-style:none; padding-left:0;">
+                    <li style="padding:10px 0;"><strong>1. Relief (Pomoć)</strong> – Hitna pomoć gladnima i nezaposlenima</li>
+                    <li style="padding:10px 0;"><strong>2. Recovery (Oporavak)</strong> – Pokretanje ekonomije iz recesije</li>
+                    <li style="padding:10px 0;"><strong>3. Reform (Reforma)</strong> – Sprečavanje budućih kriza zakonskim merama</li>
+                </ul>
+            </div>
+
+            <h3>🔨 Najvažnije mere Nju Dila</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>🏗️ Javni radovi (WPA, CCC)</h4>
+                    <ul>
+                        <li>Vlada zaposlila milione nezaposlenih</li>
+                        <li>Gradili se putevi, mostovi, škole, parkovi</li>
+                        <li>Radnici su dobijali plate i dostojanstvo</li>
+                        <li>Infrastruktura je unapređena za generacije</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>🏦 Reforma bankarskog sistema</h4>
+                    <ul>
+                        <li>Kreirana FDIC – osiguranje depozita</li>
+                        <li>Uštedine građana postale zaštićene</li>
+                        <li>Uvedena stroža kontrola banaka</li>
+                        <li>Vraćeno poverenje u bankarski sistem</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>💼 Zakon o socijalnoj sigurnosti</h4>
+                    <ul>
+                        <li>Prvi put u istoriji SAD!</li>
+                        <li>Penzije za starije građane</li>
+                        <li>Pomoć za nezaposlene (naknada)</li>
+                        <li>Temelji moderne socijalne države</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>⚖️ Zaštita radnika</h4>
+                    <ul>
+                        <li>Pravo na osnivanje sindikata</li>
+                        <li>Zakonski minimalna plata</li>
+                        <li>Ograničenje radnog vremena</li>
+                        <li>Zabrana dečjeg rada</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>✅ Koji je bio glavni rezultat Nju Dila?</h4>
+                <p style="line-height:1.8;">
+                    Nju Dil nije odmah okončao Depresiju – to je učinio Drugi svetski rat svojom masovnom industrijskom proizvodnjom. Ali Nju Dil je uspeo da smanji nezaposlenost sa 25% na 14% do 1937. godine, vrati nadu milionima Amerikanaca i spreči potpuni kolaps društva.<br><br>
+                    <strong>Najvažnija lekcija:</strong> Ruzvelt je pokazao da <span class="highlight">vlada MOŽE i MORA da interveniše u ekonomiji</span> kada tržište zakaže – revolucionarna ideja za to vreme, koja je promenila ekonomsko mišljenje zauvek.
+                </p>
+            </div>
+        </div>
+
+        <!-- KRIZA U EVROPI -->
+        <div class="section">
+            <h2>🌍 Velika Depresija u Evropi</h2>
+            <p style="font-size:1.1em; line-height:1.8; margin-bottom:25px;">
+                Kriza se brzo proširila na Evropu, koja se još uvek oporavljala od razaranja Prvog svetskog rata. Posledice su bile katastrofalne, a na nekim mestima su promenile tok istorije.
+            </p>
+
+            <h3>🇩🇪 Nemačka – Najviše stradala zemlja u Evropi</h3>
+            <div class="warning-box">
+                <h4>⚠️ Katastrofalne posledice u Nemačkoj</h4>
+                <p style="line-height:1.8">
+                    📉 <strong>44% nezaposlenost</strong> (1932) – skoro polovina radnika bez posla!<br>
+                    📉 Hiperinflacija – cene su rasle astronomski brzo<br>
+                    📉 Masovno siromaštvo – porodice gladuju na ulicama<br>
+                    📉 Politička nestabilnost i rast ekstremizma<br><br>
+                    ⚠️ <strong>Ekonomska katastrofa je otvorila put Hitlerovom dolasku na vlast 1933. Očajni ljudi bili su spremni da veruju svakom ko im obeća boljitak. Ovako je ekonomska kriza posredno doprinela izbijanju Drugog svetskog rata.</strong>
+                </p>
+            </div>
+
+            <h3>💔 Društvene posledice krize u Evropi</h3>
+            <div class="warning-box">
+                <h4>Socijalne posledice</h4>
+                <ul style="list-style:none; padding-left:0;">
+                    <li style="padding:8px 0;">😢 Masovno siromaštvo i glad</li>
+                    <li style="padding:8px 0;">👥 Gubitak poverenja u demokratiju i demokratske institucije</li>
+                    <li style="padding:8px 0;">📈 Uspon fašizma i komunizma – ekstremne ideologije dobijaju podršku</li>
+                    <li style="padding:8px 0;">🚫 Zatvaranje granica i protekcionizam – svaka zemlja za sebe</li>
+                    <li style="padding:8px 0;">⚔️ Stvaranje uslova koji su doveli do Drugog svetskog rata</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Zanimljiva napomena</h4>
+                <p style="line-height:1.8">
+                    Jedina zemlja koja nije doživela Veliku Depresiju bio je <strong>Sovjetski Savez</strong>, jer je imao izolovanu, planski vođenu ekonomiju koja nije bila povezana sa svetskim tržištem. Ovo je mnoge privuklo ka komunizmu kao alternativnom modelu.
+                </p>
+            </div>
+        </div>
+
+        <!-- NAJAVNICA LEKCIJE 2 -->
+        <div style="background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%); color:white; padding:35px; border-radius:15px; text-align:center; margin-bottom:20px;">
+            <p style="font-size:1.3em; margin-bottom:10px;">📖 <strong>Nastavak priče u Lekciji 2</strong></p>
+            <p style="font-size:1.1em; opacity:0.9;">Sve ove nevolje – kriza, Nju Dil, ogromna nezaposlenost – natprintera jednog britanskog ekonomistu da postavi pitanje: <em>zašto tržište ne funkcioniše? I šta treba da uradi vlada?</em> Taj čovek se zvao <strong>Džon Mejnard Kejnz</strong>, i njegova knjiga iz 1936. promenila je ekonomiju zauvek.</p>
+        </div>
+
+    </div><!-- end .content -->
+
+    <!-- KVIZ -->
+    <div class="quiz-section">
+        <h2>🧠 Proveri svoje znanje</h2>
+        <p class="quiz-subtitle">Pažljivo pročitaj svako pitanje i odaberi odgovor. Ako nisi u pravu – vrati se u lekciju!</p>
+
+        <!-- P1 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 1 / 15</div>
+            <h3>Koje godine se dogodio pad Njujorške berze poznat kao "Crni četvrtak", koji je označio početak Velike ekonomske krize?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(1, false, this)">A) 1924. – u godini kada su SAD doživele snažan privredni oporavak posle rata</div>
+                <div class="quiz-option" onclick="provjeri(1, false, this)">B) 1927. – kada su cene akcija na berzi dostigle dotadašnji maksimum</div>
+                <div class="quiz-option" onclick="provjeri(1, true,  this)">C) 1929. – kada je 24. oktobra (četvrtak) berza počela da se ruši u paničnoj rasprodaji</div>
+                <div class="quiz-option" onclick="provjeri(1, false, this)">D) 1933. – kada je Ruzvelt stupio na dužnost i objavio vanredno stanje u bankarstvu</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P2 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 2 / 15</div>
+            <h3>Kolika je bila stopa nezaposlenosti u Americi na vrhuncu Velike krize 1933. godine?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(2, false, this)">A) Oko 10% – svaki deseti radnik ostao je bez posla</div>
+                <div class="quiz-option" onclick="provjeri(2, false, this)">B) Oko 15% – kriza je pogodila uglavnom industrijske gradove</div>
+                <div class="quiz-option" onclick="provjeri(2, true,  this)">C) Oko 25% – svaki četvrti radnik bio je bez posla i prihoda</div>
+                <div class="quiz-option" onclick="provjeri(2, false, this)">D) Oko 44% – više od trećine radne snage nije moglo da pronađe posao</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P3 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 3 / 15</div>
+            <h3>Za koliko je opala industrijska proizvodnja u Americi tokom Velike depresije?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(3, false, this)">A) Za oko 10% – pad je bio blag i privreda se brzo oporavila</div>
+                <div class="quiz-option" onclick="provjeri(3, false, this)">B) Za oko 25% – četvrtina kapaciteta je zaustavljena u prvih godinu dana</div>
+                <div class="quiz-option" onclick="provjeri(3, true,  this)">C) Za oko 46% – skoro polovina industrijskih kapaciteta je prestala sa radom</div>
+                <div class="quiz-option" onclick="provjeri(3, false, this)">D) Za oko 60% – fabrike su masovno bankrotirale već u prvoj godini krize</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P4 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 4 / 15</div>
+            <h3>Koliko je trajala Velika ekonomska kriza – od pada berze do kraja depresije?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(4, false, this)">A) Oko 3 godine – do 1932, kada je Ruzvelt pobedio na izborima i zaustavio krizu</div>
+                <div class="quiz-option" onclick="provjeri(4, false, this)">B) Oko 5 godina – do 1934, kada je Nju Dil potpuno stabilizovao privredu</div>
+                <div class="quiz-option" onclick="provjeri(4, true,  this)">C) Oko 10 godina – od 1929. do 1939, a okončao je tek Drugi svetski rat</div>
+                <div class="quiz-option" onclick="provjeri(4, false, this)">D) Oko 15 godina – kriza je trajala sve do posleratne obnove Evrope 1944.</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P5 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 5 / 15</div>
+            <h3>Šta je špekulativni balon u ekonomiji?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(5, false, this)">A) Situacija u kojoj vlada štampa previše novca i time veštački podiže cene robe</div>
+                <div class="quiz-option" onclick="provjeri(5, false, this)">B) Naglo povećanje broja banaka koje odobravaju rizične kredite firmama i građanima</div>
+                <div class="quiz-option" onclick="provjeri(5, true,  this)">C) Stanje kada cene imovine rastu mnogo brže od stvarne vrednosti, vođene euforijom i špekulacijama, sve dok balon ne pukne</div>
+                <div class="quiz-option" onclick="provjeri(5, false, this)">D) Period kada prekomerna uvoz potiskuje domaće proizvode i izaziva privredni pad</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P6 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 6 / 15</div>
+            <h3>Šta se konkretno desilo sa špekulativnim balonom na berzi 1929. godine?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(6, false, this)">A) Polako se "ispumpao" tokom nekoliko godina, bez nagle krize ili panike</div>
+                <div class="quiz-option" onclick="provjeri(6, false, this)">B) Vlada je pravovremeno intervenisala i sprečila njegovo pucanje uvođenjem novih propisa</div>
+                <div class="quiz-option" onclick="provjeri(6, true,  this)">C) Naglo je pukao – cene akcija su se strušile za dane, investitori su paničili i gubili ušteđevine</div>
+                <div class="quiz-option" onclick="provjeri(6, false, this)">D) Evropski investitori su otkupili američke akcije i tako ublažili posledice pucanja balona</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P7 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 7 / 15</div>
+            <h3>Do čega je dovela prekomerna industrijska proizvodnja tokom 1920-ih?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(7, false, this)">A) Do bogatstva radnika – veća ponuda robe snizila je cene i povećala kupovnu moć</div>
+                <div class="quiz-option" onclick="provjeri(7, false, this)">B) Do izvoznog buma jer je Amerika punila evropska tržišta jeftinom industrijskom robom</div>
+                <div class="quiz-option" onclick="provjeri(7, true,  this)">C) Do zasićenja tržišta i neprodatih zaliha, što je nateralo firme da otpuštaju radnike i dubilo krizu</div>
+                <div class="quiz-option" onclick="provjeri(7, false, this)">D) Do zdravog privrednog rasta jer veća ponuda uvek podstiče novu potražnju i nova radna mesta</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P8 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 8 / 15</div>
+            <h3>U čemu se sastojao bankarski kolaps tokom Velike depresije?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(8, false, this)">A) Vlada je odlučila da privremeno zatvori sve banke kako bi sprečila širenje inflacije</div>
+                <div class="quiz-option" onclick="provjeri(8, false, this)">B) Banke su se dobrovoljno povukle sa tržišta jer su procene rasta bile previše pesimistične</div>
+                <div class="quiz-option" onclick="provjeri(8, true,  this)">C) Dužnici nisu mogli vraćati kredite, banke su ostale bez novca, a navale štedišâ dovele su do bankrotstava i gubitka ušteđevina</div>
+                <div class="quiz-option" onclick="provjeri(8, false, this)">D) Strani investitori su masovno povlačili kapital, prisiljavajući banke da prodaju svu imovinu i ugase se</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P9 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 9 / 15</div>
+            <h3>Kako se zvao program predsednika Ruzevelta kojim je pokušao da izvuče Ameriku iz krize?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(9, false, this)">A) Fair Deal – program pravične raspodele nacionalnog dohotka uveden 1933.</div>
+                <div class="quiz-option" onclick="provjeri(9, true,  this)">B) New Deal (Nju Dil) – nova ekonomska pogodba između vlade i američkih građana</div>
+                <div class="quiz-option" onclick="provjeri(9, false, this)">C) Great Society – sveobuhvatni socijalni program koji je obuhvatao obrazovanje i zdravstvo</div>
+                <div class="quiz-option" onclick="provjeri(9, false, this)">D) New Frontier – plan za industrijsku modernizaciju i osvajanje novih tržišta u inostranstvu</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P10 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 10 / 15</div>
+            <h3>Koja su bila tri glavna cilja Nju Dila, poznata kao "tri R-a"?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(10, false, this)">A) Regulacija tržišta, Redistribucija bogatstva i Rast industrijske proizvodnje</div>
+                <div class="quiz-option" onclick="provjeri(10, true,  this)">B) Relief (hitna pomoć gladnima), Recovery (pokretanje ekonomije) i Reform (sprečavanje budućih kriza)</div>
+                <div class="quiz-option" onclick="provjeri(10, false, this)">C) Rekonstrukcija industrije, Ravnoteža budžeta i Razvoj spoljne trgovine sa Evropom</div>
+                <div class="quiz-option" onclick="provjeri(10, false, this)">D) Restrikcija uvoza, Reorganizacija bankarstva i Revizija poreskog sistema SAD</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P11 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 11 / 15</div>
+            <h3>Koje su bile najvažnije konkretne mere Nju Dila?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(11, false, this)">A) Smanjenje poreza za krupni kapital, ukidanje carina i deregulacija bankarskog sistema</div>
+                <div class="quiz-option" onclick="provjeri(11, false, this)">B) Privatizacija državnih firmi, povećanje vojnih rashoda i podizanje kamatnih stopa</div>
+                <div class="quiz-option" onclick="provjeri(11, true,  this)">C) Javni radovi i zapošljavanje, osiguranje bankarskih depozita, socijalna sigurnost i zaštita prava radnika</div>
+                <div class="quiz-option" onclick="provjeri(11, false, this)">D) Uvođenje uvoznih carina, kontrola deviznog kursa i prinudna štednja u državnom budžetu</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P12 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 12 / 15</div>
+            <h3>Koji je bio ključni ideološki rezultat Nju Dila koji je zauvek promenio ekonomsko mišljenje?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(12, false, this)">A) Potvrdio je da slobodno tržište uvek efikasno rešava ekonomske probleme bez pomoći države</div>
+                <div class="quiz-option" onclick="provjeri(12, false, this)">B) Dokazao je da je jedino rešenje za krize prelazak na centralno plansku ekonomiju po uzoru na SSSR</div>
+                <div class="quiz-option" onclick="provjeri(12, true,  this)">C) Pokazao je da vlada može i mora da interveniše u ekonomiji kada tržište zakaže i ne može samo da se oporavi</div>
+                <div class="quiz-option" onclick="provjeri(12, false, this)">D) Utvrdio je da su banke nepouzdane i da ih treba zameniti isključivo državnim finansijskim institucijama</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P13 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 13 / 15</div>
+            <h3>Koja je zemlja u Evropi najviše stradala tokom Velike ekonomske krize i zašto?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(13, false, this)">A) Velika Britanija – jer je bila najzavisnija od međunarodne trgovine i prvih je osetila pad izvoza</div>
+                <div class="quiz-option" onclick="provjeri(13, false, this)">B) Francuska – jer se najsporije oporavila od razaranja u Prvom svetskom ratu i nije imala rezerve</div>
+                <div class="quiz-option" onclick="provjeri(13, true,  this)">C) Nemačka – već opterećena ratnim reparacijama, doživela je katastrofalnu nezaposlenost i kolaps privrede</div>
+                <div class="quiz-option" onclick="provjeri(13, false, this)">D) Italija – jer je fašistički režim odbio svaku međunarodnu finansijsku pomoć i izoloval privredu</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P14 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 14 / 15</div>
+            <h3>Kolika je bila nezaposlenost u Nemačkoj na vrhuncu krize 1932. godine?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(14, false, this)">A) Oko 15% – svaki sedmi radnik ostao je bez prihoda i egzistencijalne sigurnosti</div>
+                <div class="quiz-option" onclick="provjeri(14, false, this)">B) Oko 25% – slično kao u Americi, četvrtina radne snage bila je nezaposlena</div>
+                <div class="quiz-option" onclick="provjeri(14, false, this)">C) Oko 30% – svaki treći radnik ostao je bez posla, što je izazvalo masovne proteste</div>
+                <div class="quiz-option" onclick="provjeri(14, true,  this)">D) Oko 44% – skoro polovina radne snage bila je bez posla, a porodice su gladovale</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- P15 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 15 / 15</div>
+            <h3>Koje su bile najvažnije društvene i političke posledice Velike krize u Evropi?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(15, false, this)">A) Jačanje demokratskih institucija i privredni procvat koji je ujedinio evropske narode</div>
+                <div class="quiz-option" onclick="provjeri(15, false, this)">B) Smanjenje nezaposlenosti zahvaljujući novim industrijama i politička stabilnost širom kontinenta</div>
+                <div class="quiz-option" onclick="provjeri(15, true,  this)">C) Masovno siromaštvo, pad poverenja u demokratiju, uspon fašizma i komunizma i klima koja je dovela do Drugog svetskog rata</div>
+                <div class="quiz-option" onclick="provjeri(15, false, this)">D) Porast međunarodne saradnje i osnivanje zajedničkog evropskog tržišta kao odgovor na ekonomsku krizu</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Finalni rezultat -->
+        <div id="final-result" style="display:none; background:linear-gradient(135deg,#1a4a2e,#0f2d1a); color:white; padding:40px; border-radius:20px; text-align:center; margin-top:40px; border: 2px solid #28a745;">
+            <h2 style="font-size:2.2em; margin-bottom:20px;">🎉 Završio/la si kviz!</h2>
+            <p id="final-score" style="font-size:2em; font-weight:bold; margin-bottom:20px; color:#5bdb7a;"></p>
+            <p id="final-message" style="font-size:1.2em; line-height:1.8; color:#a8d8b0;"></p>
+            <button onclick="resetKviz()" style="margin-top:30px; padding:14px 40px; font-size:1.15em; background:#28a745; color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">
+                🔄 Pokušaj ponovo
+            </button>
+        </div>
+
+    </div><!-- end .quiz-section -->
+</div><!-- end .container -->
+
+<script>
+    const total = 15;
+    let answered = new Set();
+    let correct = 0;
+
+    function provjeri(qNum, isTacno, el) {
+        if (answered.has(qNum)) return;
+        answered.add(qNum);
+
+        const qDiv = el.closest('.quiz-question');
+        const feedback = qDiv.querySelector('.quiz-feedback');
+        const options = qDiv.querySelectorAll('.quiz-option');
+
+        options.forEach(o => { o.style.pointerEvents = 'none'; });
+
+        if (isTacno) {
+            el.style.background = 'rgba(40,167,69,0.3)';
+            el.style.borderColor = '#28a745';
+            el.style.color = '#5bdb7a';
+            feedback.innerHTML = '✅ Tačno! Odličan odgovor!';
+            feedback.className = 'quiz-feedback feedback-correct';
+            correct++;
+        } else {
+            el.style.background = 'rgba(220,53,69,0.25)';
+            el.style.borderColor = '#dc3545';
+            el.style.color = '#ff7f8e';
+            feedback.innerHTML = '❌ Netačno. Vrati se u lekciju i bolje pogledaj!';
+            feedback.className = 'quiz-feedback feedback-wrong';
+        }
+
+        feedback.style.display = 'block';
+
+        if (answered.size === total) {
+            setTimeout(showResult, 800);
+        }
+    }
+
+    function showResult() {
+        const pct = Math.round((correct / total) * 100);
+        const fr = document.getElementById('final-result');
+        document.getElementById('final-score').textContent = `Tvoj rezultat: ${correct} / ${total} (${pct}%)`;
+        let msg = '';
+        if (pct >= 90) msg = '🌟 IZVANREDNO! Ti si pravi poznavalac ove teme!';
+        else if (pct >= 75) msg = '🎯 ODLIČNO! Veoma dobro si savladao/la materiju.';
+        else if (pct >= 60) msg = '👍 DOBRO! Pročitaj lekciju još jednom da popuniš praznine.';
+        else msg = '📚 Preporučujemo da ponovo pažljivo pročitaš lekciju i pokušaš ponovo.';
+        document.getElementById('final-message').textContent = msg;
+        fr.style.display = 'block';
+        fr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function resetKviz() {
+        correct = 0;
+        answered.clear();
+        document.querySelectorAll('.quiz-option').forEach(o => {
+            o.style.background = ''; o.style.borderColor = ''; o.style.color = ''; o.style.pointerEvents = '';
+        });
+        document.querySelectorAll('.quiz-feedback').forEach(f => { f.style.display = 'none'; f.innerHTML = ''; f.className = 'quiz-feedback'; });
+        document.getElementById('final-result').style.display = 'none';
+        document.querySelector('.quiz-section').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>

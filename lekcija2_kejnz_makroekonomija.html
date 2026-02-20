@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekcija 2: Kejnz, Makroekonomija i Ekonomska politika</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #4a148c 100%);
+            color: white; padding: 60px 40px; text-align: center; position: relative; overflow: hidden;
+        }
+        .header::before {
+            content: "📗"; position: absolute; font-size: 220px; opacity: 0.08;
+            top: -40px; right: -40px; transform: rotate(-15deg);
+        }
+        .lesson-badge {
+            background: rgba(255,255,255,0.2); display: inline-block;
+            padding: 8px 25px; border-radius: 25px; font-size: 1em;
+            margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .header h1 { font-size: 2.7em; margin-bottom: 15px; position: relative; z-index: 1; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { font-size: 1.25em; opacity: 0.95; position: relative; z-index: 1; }
+        .content { padding: 50px 40px; }
+        .section { margin-bottom: 60px; }
+        .section h2 { color: #1a237e; font-size: 2.1em; margin-bottom: 25px; border-left: 8px solid #4a148c; padding-left: 20px; }
+        .section h3 { color: #4a148c; font-size: 1.7em; margin-top: 30px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #e0e0e0; }
+        .intro-box {
+            background: linear-gradient(135deg, #1a237e 0%, #4a148c 100%);
+            color: white; padding: 35px; border-radius: 15px; margin: 30px 0;
+            font-size: 1.15em; line-height: 1.9; box-shadow: 0 10px 30px rgba(26,35,126,0.3);
+        }
+        .info-box { background: #d1ecf1; border-left: 6px solid #17a2b8; padding: 25px; margin: 25px 0; border-radius: 8px; }
+        .info-box h4 { color: #0c5460; margin-bottom: 15px; font-size: 1.3em; }
+        .success-box { background: #d4edda; border-left: 6px solid #28a745; padding: 25px; margin: 25px 0; border-radius: 8px; }
+        .success-box h4 { color: #155724; margin-bottom: 15px; font-size: 1.3em; }
+        .warning-box { background: #fff3cd; border-left: 6px solid #ffc107; padding: 25px; margin: 25px 0; border-radius: 8px; }
+        .warning-box h4 { color: #856404; margin-bottom: 15px; font-size: 1.3em; }
+        .concept-box {
+            background: linear-gradient(135deg, #3498db 0%, #1a237e 100%);
+            color: white; padding: 35px; border-radius: 15px; margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(52,152,219,0.3);
+        }
+        .concept-box h4 { font-size: 1.6em; margin-bottom: 20px; }
+        .concept-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .concept-item { background: rgba(255,255,255,0.18); padding: 22px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.3); }
+        .concept-item strong { display: block; font-size: 1.2em; margin-bottom: 10px; }
+        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin: 30px 0; }
+        .comparison-card { background: #f8f9fa; border-radius: 15px; padding: 28px; border: 3px solid #e0e0e0; transition: all 0.3s; }
+        .comparison-card:hover { border-color: #4a148c; box-shadow: 0 8px 25px rgba(74,20,140,0.2); transform: translateY(-5px); }
+        .comparison-card h4 { color: #4a148c; font-size: 1.35em; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 3px solid #4a148c; }
+        .comparison-card ul { list-style: none; padding-left: 0; }
+        .comparison-card li { padding: 9px 0; padding-left: 28px; position: relative; line-height: 1.6; }
+        .comparison-card li:before { content: "→"; position: absolute; left: 0; color: #4a148c; font-weight: bold; }
+        .person-card {
+            background: white; border: 4px solid #4a148c; border-radius: 20px;
+            padding: 35px; margin: 30px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: all 0.3s;
+        }
+        .person-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(74,20,140,0.25); }
+        .person-header { display: flex; align-items: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .person-icon { font-size: 5em; margin-right: 25px; }
+        .person-info h3 { color: #4a148c; font-size: 2.1em; margin: 0 0 8px 0; border: none; padding: 0; }
+        .person-years { color: #666; font-size: 1.2em; font-style: italic; }
+        .person-role { background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 100%); color: white; padding: 10px 22px; border-radius: 25px; display: inline-block; margin-bottom: 18px; font-weight: bold; }
+        .person-contribution { background: #f3e5f5; padding: 25px; border-radius: 12px; margin-top: 20px; border-left: 5px solid #4a148c; }
+        .person-contribution h4 { color: #4a148c; margin-bottom: 15px; font-size: 1.35em; }
+        .quote-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-left: 6px solid #f39c12; padding: 28px; margin: 28px 0; border-radius: 10px;
+            font-style: italic; font-size: 1.2em; line-height: 1.9;
+        }
+        .quote-box::before { content: "\201C"; font-size: 4em; color: #f39c12; line-height: 0; display: block; margin-bottom: 15px; }
+        .quote-author { text-align: right; margin-top: 12px; font-style: normal; font-weight: bold; color: #d35400; }
+        .highlight { background: linear-gradient(135deg, #4a148c, #7b1fa2); color: white; padding: 3px 10px; border-radius: 5px; font-weight: bold; }
+        .policy-section {
+            background: linear-gradient(135deg, #16a085 0%, #1abc9c 100%);
+            color: white; padding: 40px; border-radius: 20px; margin: 40px 0;
+        }
+        .policy-section h3 { color: white; border-bottom-color: rgba(255,255,255,0.3); }
+        .policy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 25px; }
+        .policy-card { background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.3); }
+        .policy-card h4 { font-size: 1.3em; margin-bottom: 15px; color: white; }
+        .trougao-box {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white; padding: 35px; border-radius: 15px; margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(243,156,18,0.3); text-align: center;
+        }
+        .trougao-box h4 { font-size: 1.8em; margin-bottom: 20px; }
+        .trougao-items { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; }
+        .trougao-item { background: rgba(255,255,255,0.25); padding: 20px 30px; border-radius: 12px; font-size: 1.2em; font-weight: bold; border: 2px solid rgba(255,255,255,0.4); }
+
+        /* Fiskalna / Monetarna dvokolonski box */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .col-box { background: white; padding: 20px; border-radius: 10px; }
+        .col-box-recession { border-left: 5px solid #dc3545; }
+        .col-box-expansion { border-left: 5px solid #28a745; }
+        .col-box h5 { font-size: 1.1em; margin-bottom: 12px; }
+        .col-box-recession h5 { color: #dc3545; }
+        .col-box-expansion h5 { color: #28a745; }
+        .col-box p { line-height: 1.8; font-size: 0.97em; }
+        @media(max-width:600px) { .two-col { grid-template-columns: 1fr; } }
+
+        /* KVIZ */
+        .quiz-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 50px 40px;
+        }
+        .quiz-section h2 { color: #7c83fd; font-size: 2.3em; margin-bottom: 10px; text-align: center; }
+        .quiz-subtitle { color: #a8b2d8; text-align: center; margin-bottom: 40px; font-size: 1.1em; }
+        .quiz-question {
+            background: #0f3460; border: 2px solid #1a4a7a; border-radius: 15px;
+            padding: 28px; margin-bottom: 28px; transition: all 0.3s;
+        }
+        .quiz-question:hover { border-color: #7c83fd; box-shadow: 0 5px 20px rgba(124,131,253,0.2); }
+        .quiz-question h3 { color: #e2e8f0; margin-bottom: 18px; font-size: 1.08em; line-height: 1.6; }
+        .q-number { color: #7c83fd; font-size: 0.9em; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; }
+        .quiz-options { display: grid; gap: 10px; margin-top: 12px; }
+        .quiz-option {
+            background: #162447; border: 2px solid #1a4a7a; padding: 14px 18px;
+            border-radius: 10px; cursor: pointer; transition: all 0.3s;
+            font-size: 1.02em; color: #e2e8f0;
+        }
+        .quiz-option:hover { background: #1a3a6a; border-color: #7c83fd; transform: translateX(5px); }
+        .quiz-feedback { display: none; padding: 14px; margin-top: 14px; border-radius: 8px; font-weight: bold; font-size: 1em; }
+        .feedback-correct { background: rgba(40,167,69,0.2); border: 2px solid #28a745; color: #5bdb7a; }
+        .feedback-wrong { background: rgba(124,131,253,0.15); border: 2px solid #7c83fd; color: #b0b8ff; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="lesson-badge">📚 Lekcija 2 od 2</div>
+        <h1>Kejnz, Makroekonomija i Ekonomska politika</h1>
+        <p>Od revolucionarne knjige iz 1936. do savremenih alata ekonomske politike</p>
+    </div>
+
+    <div class="content">
+
+        <!-- VEZA SA LEKCIJOM 1 -->
+        <div class="section">
+            <h2>🔗 Gde smo stali?</h2>
+            <div class="intro-box">
+                <p>U prvoj lekciji videli smo kako je svet zapao u Veliku depresiju 1929. i kako je predsednik Ruzvelt pokušao da pomogne programom Nju Dil – vlada je trošila ogromne sume novca, zapošljavala ljude na javnim radovima i reformisala bankarski sistem.</p>
+                <br>
+                <p>Ruzvelt je to radio instinktivno. Ali u Britaniji, jedan ekonomista posmatrao je krizu i Nju Dil s dubokim intelektualnim zanimanjem. Pokupio je sve to, razvio teoriju i 1936. objavio knjigu koja je <strong>zauvek promenila ekonomsku nauku</strong>. Taj čovek bio je <strong>Džon Mejnard Kejnz</strong>.</p>
+            </div>
+        </div>
+
+        <!-- KEJNZ -->
+        <div class="section">
+            <h2>🎓 Džon Mejnard Kejnz – Čovek koji je promenio ekonomiju</h2>
+
+            <div class="person-card">
+                <div class="person-header">
+                    <div class="person-icon">👨‍🏫</div>
+                    <div class="person-info">
+                        <h3>John Maynard Keynes</h3>
+                        <div class="person-years">1883–1946 | Britanija</div>
+                    </div>
+                </div>
+                <div class="person-role">Otac moderne makroekonomije</div>
+
+                <p style="font-size:1.1em; line-height:1.8; margin-bottom:18px;">
+                    Dok su ekonomisti tog vremena govorili: <em>"Strpite se, tržište će se samo urediti"</em>, Kejnz je odgovarao: <strong>"NE, neće! I dok čekamo, milioni pate od gladi."</strong> Njegova analiza krize bila je precizna, hrabra i suprotna svemu što se do tada učilo.
+                </p>
+
+                <div class="quote-box">
+                    U dugom roku svi smo mrtvi. Ekonomisti postavljaju sebi previše lak zadatak ako u burnim vremenima mogu samo da nam kažu da će okean, kad oluja prođe, ponovo biti miran.
+                    <div class="quote-author">– John Maynard Keynes</div>
+                </div>
+
+                <div class="person-contribution">
+                    <h4>📗 Revolucionarna knjiga iz 1936. godine</h4>
+                    <p style="line-height:1.8; margin-bottom:15px;">
+                        Kejnz je 1936. objavio <strong>"Opštu teoriju zaposlenosti, kamate i novca"</strong> – delo koje je postalo kamen temeljac moderne ekonomije. Evo njegovih pet ključnih ideja:
+                    </p>
+                    <div style="background:white; padding:22px; border-radius:10px; margin-top:15px;">
+                        <p style="margin-bottom:12px;"><strong style="color:#4a148c; font-size:1.15em;">1. Tržište se NEĆE samo ispraviti</strong></p>
+                        <p style="line-height:1.7; margin-bottom:18px;">Ekonomija može zaglaviti u dugoj depresiji. Tržište samo po sebi ne rešava problem masovne nezaposlenosti.</p>
+
+                        <p style="margin-bottom:12px;"><strong style="color:#4a148c; font-size:1.15em;">2. Agregatna tražnja je ključna</strong></p>
+                        <p style="line-height:1.7; margin-bottom:18px;"><span class="highlight">Agregatna tražnja</span> = ukupna potrošnja u ekonomiji (potrošnja + investicije + državna potrošnja + izvoz − uvoz). Kad ona padne, ekonomija tone. Mora se podići!</p>
+
+                        <p style="margin-bottom:12px;"><strong style="color:#4a148c; font-size:1.15em;">3. Vlada MORA da interveniše</strong></p>
+                        <p style="line-height:1.7; margin-bottom:18px;">U vreme krize, privatni sektor se plaši i prestaje da troši i investira. Vlada mora da "uleti" i poveća potrošnju – javni radovi, socijalna pomoć – da pokrene ekonomiju.</p>
+
+                        <p style="margin-bottom:12px;"><strong style="color:#4a148c; font-size:1.15em;">4. Deficit je prihvatljiv u krizi</strong></p>
+                        <p style="line-height:1.7; margin-bottom:18px;">Vlada ne mora čekati da ima novac u budžetu. U krizi treba da pozajmi i troši (deficit spending). Kad ekonomija poraste, vrati dug.</p>
+
+                        <p style="margin-bottom:12px;"><strong style="color:#4a148c; font-size:1.15em;">5. Paradoks štednje</strong></p>
+                        <p style="line-height:1.7;">Ako SVI štede u isto vreme (što je logično za svakog pojedinca), to POGORŠAVA krizu. Zašto? Jer potrošnja jedne osobe znači prihod druge. Ako niko ne troši – niko ne zarađuje.</p>
+                    </div>
+                </div>
+
+                <div class="success-box" style="margin-top:25px;">
+                    <h4>🎯 Veza Kejnza i Nju Dila</h4>
+                    <p style="line-height:1.8;">
+                        Zanimljivo: Ruzvelt je primenio Nju Dil <em>pre</em> nego što je Kejnz objavio svoju knjigu! Ali Kejnzova teorija je dala <strong>naučno opravdanje i teorijsku osnovu</strong> za ono što je Ruzvelt radio instinktivno:<br><br>
+                        ✅ Masivna vladina potrošnja na javne radove = podizanje agregatne tražnje<br>
+                        ✅ Pozajmljivanje za finansiranje programa = deficit spending<br>
+                        ✅ Direktna intervencija umesto čekanja da "tržište reši problem"<br><br>
+                        Ruzvelt je bio pratičar; Kejnz mu je dao teorijsku potvrdu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NASTANAK MAKROEKONOMIJE -->
+        <div class="section">
+            <h2>🎓 Rođenje makroekonomije kao nauke</h2>
+
+            <div class="concept-box">
+                <h4>💡 Kako je ekonomija izgledala pre, tokom i posle 1936. godine?</h4>
+                <div class="concept-list">
+                    <div class="concept-item">
+                        <strong>Pre 1936. godine</strong>
+                        Ekonomisti su se bavili isključivo <em>mikroekonomijom</em> – pojedinačnim tržištima, firmama i potrošačima. Vladalo je uverenje da će "nevidljiva ruka" tržišta uvek sve dovesti u ravnotežu. Makroekonomija kao disciplina nije ni postojala.
+                    </div>
+                    <div class="concept-item">
+                        <strong>1936. godina – Prekretnica</strong>
+                        Kejnz objavljuje "Opštu teoriju". Dokazuje da tržište može zaglaviti i da je neophodna vladina intervencija. Ovo je trenutak <strong>rođenja makroekonomije</strong> kao posebne naučne discipline.
+                    </div>
+                    <div class="concept-item">
+                        <strong>Posle 1936. godine</strong>
+                        Fokus se pomera na ekonomiju kao celinu. Ekonomisti počinju da proučavaju i mere BDP, stopu inflacije, stopu nezaposlenosti i ekonomski rast. Vlade dobijaju naučne alate za upravljanje ekonomijom.
+                    </div>
+                </div>
+            </div>
+
+            <h3>🔑 Tri ključna pitanja makroekonomije</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>📊 1. Ekonomski rast (BDP)</h4>
+                    <ul>
+                        <li>Koliko ekonomija ukupno proizvodi?</li>
+                        <li>Da li BDP raste ili opada?</li>
+                        <li>Šta podstiče dugoročni rast?</li>
+                        <li>Kako merimo nacionalni dohodak?</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>👥 2. Zaposlenost</h4>
+                    <ul>
+                        <li>Koliko radnika nema posao?</li>
+                        <li>Šta uzrokuje nezaposlenost?</li>
+                        <li>Kako je smanjiti?</li>
+                        <li>Koje su vrste nezaposlenosti?</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>💰 3. Cene i inflacija</h4>
+                    <ul>
+                        <li>Zašto rastu cene? (inflacija)</li>
+                        <li>Kako kontrolisati inflaciju?</li>
+                        <li>Šta je deflacija i zašto je opasna?</li>
+                        <li>Kako inflacija utiče na ljude?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="trougao-box">
+                <h4>🔺 Zlatni trougao makroekonomije</h4>
+                <p style="font-size:1.15em; margin-bottom:10px;">Suštinsko pitanje makroekonomije je:</p>
+                <p style="font-size:1.25em; font-style:italic; margin-bottom:20px;"><strong>"Kako postići da ekonomija raste stabilno, sa punom zaposlenošću i niskom inflacijom – istovremeno?"</strong></p>
+                <div class="trougao-items">
+                    <div class="trougao-item">📈 Ekonomski rast</div>
+                    <div class="trougao-item">👷 Niska nezaposlenost</div>
+                    <div class="trougao-item">🏷️ Stabilne cene</div>
+                </div>
+                <p style="margin-top:20px; font-size:1.05em; opacity:0.9;">Pronalaženje načina da se ova tri cilja postignu istovremeno – srž je celokupne makroekonomske politike.</p>
+            </div>
+        </div>
+
+        <!-- EKONOMSKA POLITIKA -->
+        <div class="section">
+            <h2>🎯 Ekonomska politika</h2>
+
+            <div class="policy-section">
+                <h3 style="color:white; border-bottom:3px solid rgba(255,255,255,0.4); padding-bottom:10px; margin-bottom:25px;">Šta je ekonomska politika?</h3>
+                <p style="font-size:1.15em; line-height:1.8; margin-bottom:25px;">
+                    <strong>Ekonomska politika</strong> je skup mera, odluka i instrumenata koje vlada i centralna banka koriste da upravljaju ekonomijom i ostvare željene ciljeve. To je kao "upravljačka tabla" za ekonomiju – ima poluge koje se pomeraju da bi se uticalo na ekonomsku aktivnost i blagostanje građana.
+                </p>
+                <div class="policy-grid">
+                    <div class="policy-card">
+                        <h4>❓ ZAŠTO?</h4>
+                        <ul style="list-style:none; padding-left:0;">
+                            <li>✓ Povećati ekonomski rast</li>
+                            <li>✓ Smanjiti nezaposlenost</li>
+                            <li>✓ Kontrolisati inflaciju</li>
+                            <li>✓ Sprečiti ekonomske krize</li>
+                            <li>✓ Održati socijalnu stabilnost</li>
+                        </ul>
+                    </div>
+                    <div class="policy-card">
+                        <h4>🎯 KAKO?</h4>
+                        <ul style="list-style:none; padding-left:0;">
+                            <li>1️⃣ Fiskalnom politikom</li>
+                            <li>2️⃣ Monetarnom politikom</li>
+                            <li>3️⃣ Strukturnim reformama</li>
+                        </ul>
+                    </div>
+                    <div class="policy-card">
+                        <h4>👥 KO?</h4>
+                        <ul style="list-style:none; padding-left:0;">
+                            <li>🏛️ Vlada (fiskalna politika)</li>
+                            <li>🏦 Centralna banka (monetarna)</li>
+                            <li>📊 Ministarstvo finansija</li>
+                            <li>⚖️ Regulatorna tela</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FISKALNA POLITIKA -->
+            <h3>💼 1. Fiskalna politika</h3>
+            <div class="info-box">
+                <h4>Šta je fiskalna politika?</h4>
+                <p style="line-height:1.8; margin-bottom:18px;">
+                    <strong>Fiskalna politika</strong> je upravljanje <span class="highlight">državnom potrošnjom i porezima</span>. To je glavni alat vlade (parlamenta i ministarstva finansija) za upravljanje ekonomijom.<br><br>
+                    <strong>Dva instrumenta fiskalne politike:</strong><br>
+                    <strong>1. Vladina potrošnja</strong> – koliko država troši na infrastrukturu, obrazovanje, zdravstvo, socijalnu zaštitu, vojsku itd.<br>
+                    <strong>2. Porezi</strong> – koliko država uzima od građana i firmi (porez na dohodak, PDV, porez na dobit...)
+                </p>
+                <div class="two-col">
+                    <div class="col-box col-box-recession">
+                        <h5>📉 U vreme RECESIJE (ekonomija slaba):</h5>
+                        <p>
+                            ✅ Vlada <strong>POVEĆAVA potrošnju</strong> – gradi puteve, zapošljava ljude<br>
+                            ✅ Vlada <strong>SMANJUJE poreze</strong> – građani imaju više novca za potrošnju<br>
+                            🎯 Cilj: Pokrenuti ekonomiju, smanjiti nezaposlenost<br>
+                            ⚠️ Posledica: Nastaje budžetski deficit
+                        </p>
+                    </div>
+                    <div class="col-box col-box-expansion">
+                        <h5>📈 U vreme EKSPANZIJE (ekonomija se pregreva):</h5>
+                        <p>
+                            ✅ Vlada <strong>SMANJUJE potrošnju</strong><br>
+                            ✅ Vlada <strong>POVEĆAVA poreze</strong> – "hladi" ekonomiju<br>
+                            🎯 Cilj: Sprečiti inflaciju, usporiti pregrevanje<br>
+                            ✅ Rezultat: Budžetski suficit ili smanjenje duga
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MONETARNA POLITIKA -->
+            <h3>🏦 2. Monetarna politika</h3>
+            <div class="info-box">
+                <h4>Šta je monetarna politika?</h4>
+                <p style="line-height:1.8; margin-bottom:18px;">
+                    <strong>Monetarna politika</strong> je upravljanje <span class="highlight">količinom novca u opticaju i kamatnim stopama</span>. Sprovodi je <strong>centralna banka</strong> (u Srbiji – Narodna banka Srbije, u SAD – Federalne rezerve, u Evropi – Evropska centralna banka).<br><br>
+                    <strong>Glavni instrumenti:</strong><br>
+                    💵 <strong>Referentna kamatna stopa</strong> – po kojoj centralna banka pozajmljuje novac bankama<br>
+                    📈 <strong>Operacije na otvorenom tržištu</strong> – kupovina/prodaja državnih obveznica<br>
+                    🏦 <strong>Obavezna rezerva</strong> – koliko novca banke moraju držati u rezervi
+                </p>
+                <div class="two-col">
+                    <div class="col-box col-box-recession">
+                        <h5>📉 U vreme RECESIJE:</h5>
+                        <p>
+                            ✅ Centralna banka <strong>SNIŽAVA kamatne stope</strong><br>
+                            ✅ Krediti postaju jeftiniji → firme i građani više pozajmljuju<br>
+                            ✅ Više novca ulazi u ekonomiju → raste potrošnja i investicije<br>
+                            🎯 Cilj: Podstaći ekonomsku aktivnost
+                        </p>
+                    </div>
+                    <div class="col-box col-box-expansion">
+                        <h5>📈 U vreme EKSPANZIJE (visoka inflacija):</h5>
+                        <p>
+                            ✅ Centralna banka <strong>PODIŽE kamatne stope</strong><br>
+                            ✅ Krediti skupljaju → manje pozajmljivanja<br>
+                            ✅ Manje novca u opticaju → manji pritisak na cene<br>
+                            🎯 Cilj: Obuzdati inflaciju, sprečiti pregrevanje
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POREĐENJE -->
+            <h3>⚖️ Fiskalna vs. Monetarna politika – Ključne razlike</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>💼 Fiskalna politika</h4>
+                    <ul>
+                        <li>Sprovodi: <strong>Vlada</strong> (parlament, ministarstvo finansija)</li>
+                        <li>Alati: porezi i državna potrošnja</li>
+                        <li>Efekat: relativno spor (treba usvojiti budžet)</li>
+                        <li>Direktni uticaj na javne usluge i zapošljavanje</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h4>🏦 Monetarna politika</h4>
+                    <ul>
+                        <li>Sprovodi: <strong>Centralna banka</strong> (nezavisno od vlade)</li>
+                        <li>Alati: kamatne stope i količina novca</li>
+                        <li>Efekat: brži (odluke se donose češće)</li>
+                        <li>Indirektan uticaj kroz cenu kredita</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <h4>🌟 Kejnzovo nasleđe danas</h4>
+                <p style="line-height:1.8;">
+                    Sve te fisklane i monetarne mere koje vlade i centralne banke danas koriste – direktno su nasleđe Kejnzove revolucije. Svaki put kada vlada povećava potrošnju tokom recesije, ili kada centralna banka snižava kamatne stope da pokrene ekonomiju, primenjuje se <strong>kejnzijanski pristup</strong>. Kejnz nam je dao jezik, alate i teorijsku osnovu za savremenu ekonomsku politiku.
+                </p>
+            </div>
+        </div>
+
+        <!-- SAŽETAK -->
+        <div style="background:linear-gradient(135deg,#1a237e,#4a148c); color:white; padding:35px; border-radius:15px; margin-bottom:20px;">
+            <h3 style="color:white; border:none; font-size:1.8em; margin-bottom:20px;">📌 Sažetak obe lekcije</h3>
+            <p style="line-height:1.9; font-size:1.1em;">
+                Velika depresija 1929. srušila je mit o savršenom tržištu. Ruzvelt je pokazao da vlada mora da interveniše – Nju Dil je bio revolucija u praksi. Kejnz je 1936. dao teorijsku osnovu toj revoluciji i rodio makroekonomiju. Danas, svaka zemlja koristi fiskalnu i monetarnu politiku da bi ostvarila tri cilja <strong>zlatnog trougla</strong>: ekonomski rast, nisku nezaposlenost i stabilne cene. To je nasleđe Velike depresije koje živimo svaki dan.
+            </p>
+        </div>
+
+    </div><!-- end .content -->
+
+    <!-- KVIZ -->
+    <div class="quiz-section">
+        <h2>🧠 Proveri svoje znanje</h2>
+        <p class="quiz-subtitle">Pažljivo pročitaj svako pitanje i odaberi odgovor. Ako nisi u pravu – vrati se u lekciju i bolje pogledaj!</p>
+
+        <!-- Q1 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 1 / 14</div>
+            <h3>Kako je izgledala ekonomska nauka pre 1936. i kakvo je bilo vladajuće uverenje o tržištu?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(1, false, this)">A) Ekonomisti su proučavali celokupnu privredu i zagovarali stalnu intervenciju vlade u ekonomske tokove</div>
+                <div class="quiz-option" onclick="provjeri(1, true,  this)">B) Ekonomisti su se bavili samo mikroekonomijom – pojedinačnim firmama i tržištima – verujući da "nevidljiva ruka" uvek uspostavlja ravnotežu</div>
+                <div class="quiz-option" onclick="provjeri(1, false, this)">C) Ekonomisti su se fokusirali na monetarnu politiku i kontrolu novčane mase kao ključnog alata za rast</div>
+                <div class="quiz-option" onclick="provjeri(1, false, this)">D) Ekonomisti su proučavali međunarodnu trgovinu i verovali da je slobodna razmena jedini put do blagostanja</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 2 / 14</div>
+            <h3>Šta se desilo 1936. godine što je označilo prekretnicu u istoriji ekonomske nauke?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(2, false, this)">A) Ruzvelt je pokrenuo Nju Dil i dokazao da državna intervencija može da okonča ekonomsku krizu</div>
+                <div class="quiz-option" onclick="provjeri(2, false, this)">B) Završila se Velika depresija i svet je ušao u period snažnog privrednog oporavka i rasta</div>
+                <div class="quiz-option" onclick="provjeri(2, true,  this)">C) Kejnz je objavio "Opštu teoriju zaposlenosti, kamate i novca" i time postavio temelje makroekonomije kao nauke</div>
+                <div class="quiz-option" onclick="provjeri(2, false, this)">D) Osnovan je Međunarodni monetarni fond kao globalna institucija za stabilizaciju privreda u krizi</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 3 / 14</div>
+            <h3>Šta se promenilo u ekonomskoj nauci i praksi posle 1936. godine?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(3, true,  this)">A) Ekonomisti su počeli da proučavaju privredu kao celinu – BDP, inflaciju i nezaposlenost – a vlade su dobile naučne alate za aktivno upravljanje ekonomijom</div>
+                <div class="quiz-option" onclick="provjeri(3, false, this)">B) Ekonomisti su se vratili mikroekonomskom pristupu, ali su razvili preciznije modele ponašanja pojedinačnih firmi</div>
+                <div class="quiz-option" onclick="provjeri(3, false, this)">C) Vlade su se povukle iz ekonomije i prepustile tržištu da slobodno reguliše sve privredne tokove</div>
+                <div class="quiz-option" onclick="provjeri(3, false, this)">D) Ekonomija je postala isključivo akademska disciplina, odvojena od stvarnih problema privredne politike</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 4 / 14</div>
+            <h3>Koja su tri ključna pitanja kojima se bavi makroekonomija?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(4, false, this)">A) Cena proizvoda na tržištu, prihodi pojedinih firmi i stepen tržišne konkurencije u granama</div>
+                <div class="quiz-option" onclick="provjeri(4, true,  this)">B) Ekonomski rast i visina BDP-a, stopa zaposlenosti i stopa inflacije – kao tri ključna pokazatelja zdravlja celokupne privrede</div>
+                <div class="quiz-option" onclick="provjeri(4, false, this)">C) Spoljnotrgovinska razmena sa inostranstvom, devizni kurs i visina budžetskog deficita države</div>
+                <div class="quiz-option" onclick="provjeri(4, false, this)">D) Zakon ponude i potražnje, ravnoteža na tržištu i elastičnost cena roba i usluga</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 5 / 14</div>
+            <h3>Šta predstavlja "zlatni trougao" makroekonomije?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(5, false, this)">A) Tri glavna instrumenta ekonomske politike kojima vlada i centralna banka upravljaju privredom: porezi, kamate i javni radovi</div>
+                <div class="quiz-option" onclick="provjeri(5, false, this)">B) Tri osnovna ekonomska zakona: zakon ponude, zakon potražnje i zakon tržišne ravnoteže cena</div>
+                <div class="quiz-option" onclick="provjeri(5, true,  this)">C) Tri istovremena cilja makroekonomije koja je teško ostvariti zajedno: stabilan ekonomski rast, niska nezaposlenost i stabilne cene</div>
+                <div class="quiz-option" onclick="provjeri(5, false, this)">D) Tri ključne institucije ekonomske politike koje moraju sarađivati: vlada, centralna banka i međunarodne finansijske organizacije</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 6 / 14</div>
+            <h3>Šta je ekonomska politika?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(6, false, this)">A) Skup zakona i propisa kojima se reguliše osnivanje privatnih firmi i zaštita prava potrošača na tržištu</div>
+                <div class="quiz-option" onclick="provjeri(6, true,  this)">B) Skup mera i odluka kojima vlada i centralna banka upravljaju ekonomijom radi ostvarivanja ciljeva kao što su rast, zaposlenost i stabilne cene</div>
+                <div class="quiz-option" onclick="provjeri(6, false, this)">C) Program postupnog prenosa državnih preduzeća u privatno vlasništvo radi povećanja tržišne efikasnosti</div>
+                <div class="quiz-option" onclick="provjeri(6, false, this)">D) Sistem međunarodnih sporazuma o slobodnoj trgovini kojim se uklanjaju carine i barijere između zemalja</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 7 / 14</div>
+            <h3>Zašto se sprovodi ekonomska politika – koji su njeni ciljevi?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(7, false, this)">A) Isključivo da bi se povećali prihodi državnog budžeta kroz više poreze i naknade za korišćenje javnih usluga</div>
+                <div class="quiz-option" onclick="provjeri(7, false, this)">B) Da bi se ograničila ekonomska moć krupnog kapitala i sprečile monopolske prakse na domaćem tržištu</div>
+                <div class="quiz-option" onclick="provjeri(7, true,  this)">C) Da bi se ostvario privredni rast, smanjila nezaposlenost, kontrolisala inflacija, sprečile ekonomske krize i održala socijalna stabilnost</div>
+                <div class="quiz-option" onclick="provjeri(7, false, this)">D) Da bi se zaštitile domaće firme od strane konkurencije uvođenjem carina i kvota na uvozne proizvode</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 8 / 14</div>
+            <h3>Šta je fiskalna politika i čime se ona bavi?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(8, false, this)">A) Politika kojom centralna banka kontroliše kamatnu stopu i reguliše kreditnu aktivnost bankarskog sektora</div>
+                <div class="quiz-option" onclick="provjeri(8, false, this)">B) Politika nadzora i regulacije berze i ostalih finansijskih tržišta radi zaštite investitora od prevara</div>
+                <div class="quiz-option" onclick="provjeri(8, true,  this)">C) Politika kojom vlada upravlja državnom potrošnjom i poreskim sistemom kako bi uticala na nivo ekonomske aktivnosti</div>
+                <div class="quiz-option" onclick="provjeri(8, false, this)">D) Politika uvoznih carina i kvota kojom vlada štiti domaću industriju od jeftinih stranih proizvoda</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 9 / 14</div>
+            <h3>Koja su dva glavna instrumenta fiskalne politike?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(9, false, this)">A) Referentna kamatna stopa i devizni kurs – kojima se reguliše vrednost novca i cena kredita</div>
+                <div class="quiz-option" onclick="provjeri(9, true,  this)">B) Državna potrošnja na javne usluge i infrastrukturu, i porezi kojima vlada prikuplja prihode od građana i firmi</div>
+                <div class="quiz-option" onclick="provjeri(9, false, this)">C) Obavezna rezerva poslovnih banaka i operacije kupovine ili prodaje državnih obveznica na otvorenom tržištu</div>
+                <div class="quiz-option" onclick="provjeri(9, false, this)">D) Uvozne carine na strane proizvode i upravljanje visinom spoljnog državnog duga prema inostranstvu</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 10 / 14</div>
+            <h3>Kako vlada sprovodi fiskalnu politiku u vreme recesije kada privreda stagnira?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(10, false, this)">A) Smanjuje potrošnju i povećava poreze kako bi smanjila budžetski deficit i osigurala finansijsku disciplinu</div>
+                <div class="quiz-option" onclick="provjeri(10, true,  this)">B) Povećava potrošnju kroz javne radove i socijalnu zaštitu, i snižava poreze da bi podstakla potrošnju i smanjila nezaposlenost</div>
+                <div class="quiz-option" onclick="provjeri(10, false, this)">C) Zadržava nepromenjenu potrošnju i poreze jer intervencija narušava tržišnu ravnotežu i usporava oporavak</div>
+                <div class="quiz-option" onclick="provjeri(10, false, this)">D) Uvodi carine na uvoz i subvencioniše izvozne firme kako bi poboljšala spoljnotrgovinski bilans zemqe</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 11 / 14</div>
+            <h3>Kako vlada sprovodi fiskalnu politiku u vreme ekspanzije kada privreda "pregreva" uz visoku inflaciju?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(11, true,  this)">A) Smanjuje javnu potrošnju i povećava poreze kako bi "ohladila" ekonomiju i sprečila dalje ubrzanje inflacije</div>
+                <div class="quiz-option" onclick="provjeri(11, false, this)">B) Povećava javnu potrošnju na infrastrukturu kako bi iskoristila povoljne ekonomske uslove i period rasta</div>
+                <div class="quiz-option" onclick="provjeri(11, false, this)">C) Smanjuje poreze kako bi povećala kupovnu moć i stimulisala tržišnu konkurenciju između domaćih firmi</div>
+                <div class="quiz-option" onclick="provjeri(11, false, this)">D) Povećava minimalnu zaradu i proširuje socijalna davanja jer rast privrede to ekonomski opravdava</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 12 / 14</div>
+            <h3>Šta je monetarna politika i koja institucija je sprovodi?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(12, false, this)">A) Vlada je sprovodi kroz budžetsku potrošnju i poreske mere kojima utiče na ekonomsku aktivnost</div>
+                <div class="quiz-option" onclick="provjeri(12, false, this)">B) Parlament je usvaja godišnjim glasanjem o visini kamatnih stopa i limitima kreditiranja banaka</div>
+                <div class="quiz-option" onclick="provjeri(12, true,  this)">C) Sprovodi je centralna banka (u Srbiji NBS) upravljanjem kamatnim stopama i količinom novca u opticaju</div>
+                <div class="quiz-option" onclick="provjeri(12, false, this)">D) Ministarstvo finansija je sprovodi u saradnji s poslovnim bankama kroz usaglašene kreditne standarde</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 13 / 14</div>
+            <h3>Kako centralna banka sprovodi monetarnu politiku u vreme recesije?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(13, false, this)">A) Podiže kamatne stope kako bi smanjila inflaciju i sačuvala kupovnu moć novca u uslovima privrednog pada</div>
+                <div class="quiz-option" onclick="provjeri(13, false, this)">B) Povećava obavezne rezerve poslovnih banaka i tako ograničava kreditnu ekspanziju u privredi</div>
+                <div class="quiz-option" onclick="provjeri(13, true,  this)">C) Snižava kamatne stope kako bi jeftiniji krediti podstakli zaduživanje firmi i građana, povećali potrošnju i pokrenuli privredu</div>
+                <div class="quiz-option" onclick="provjeri(13, false, this)">D) Zamrzava kamatne stope na tekućem nivou i čeka signal tržišta pre nego što preduzme bilo kakve mere</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="quiz-question">
+            <div class="q-number">PITANJE 14 / 14</div>
+            <h3>Kako centralna banka sprovodi monetarnu politiku u vreme ekspanzije s visokom inflacijom?</h3>
+            <div class="quiz-options">
+                <div class="quiz-option" onclick="provjeri(14, false, this)">A) Snižava kamatne stope kako bi jeftiniji krediti podstakli nove investicije i produžili period privrednog rasta</div>
+                <div class="quiz-option" onclick="provjeri(14, false, this)">B) Štampa dodatni novac i ubacuje ga u opticaj kako bi finansirala državne programe i infrastrukturne projekte</div>
+                <div class="quiz-option" onclick="provjeri(14, true,  this)">C) Podiže kamatne stope kako bi skupljim kreditima smanjila zaduživanje, povukla novac iz opticaja i obuzdala inflaciju</div>
+                <div class="quiz-option" onclick="provjeri(14, false, this)">D) Prodaje devizne rezerve na tržištu kako bi ojačala domaću valutu i smanjila uvozne cene robe i sirovina</div>
+            </div>
+            <div class="quiz-feedback"></div>
+        </div>
+
+        <!-- Finalni rezultat -->
+        <div id="final-result" style="display:none; background:linear-gradient(135deg,#1a2a4a,#0f1d35); color:white; padding:40px; border-radius:20px; text-align:center; margin-top:40px; border:2px solid #7c83fd;">
+            <h2 style="font-size:2.2em; margin-bottom:20px;">🎓 Završio/la si Lekciju 2!</h2>
+            <p id="final-score" style="font-size:2em; font-weight:bold; margin-bottom:20px; color:#a0abff;"></p>
+            <p id="final-message" style="font-size:1.2em; line-height:1.8; color:#c5c9f5;"></p>
+            <button onclick="resetKviz()" style="margin-top:30px; padding:14px 40px; font-size:1.15em; background:#7c83fd; color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">
+                🔄 Pokušaj ponovo
+            </button>
+        </div>
+
+    </div><!-- end .quiz-section -->
+</div><!-- end .container -->
+
+<script>
+    const total = 14;
+    let answered = new Set();
+    let correct = 0;
+
+    function provjeri(qNum, isTacno, el) {
+        if (answered.has(qNum)) return;
+        answered.add(qNum);
+
+        const qDiv = el.closest('.quiz-question');
+        const feedback = qDiv.querySelector('.quiz-feedback');
+        const options = qDiv.querySelectorAll('.quiz-option');
+
+        options.forEach(o => { o.style.pointerEvents = 'none'; });
+
+        if (isTacno) {
+            el.style.background = 'rgba(40,167,69,0.3)';
+            el.style.borderColor = '#28a745';
+            el.style.color = '#5bdb7a';
+            feedback.innerHTML = '✅ Tačno! Odlično!';
+            feedback.className = 'quiz-feedback feedback-correct';
+            correct++;
+        } else {
+            el.style.background = 'rgba(124,131,253,0.2)';
+            el.style.borderColor = '#7c83fd';
+            el.style.color = '#c5c9f5';
+            feedback.innerHTML = '❌ Netačno. Vrati se u lekciju i bolje pogledaj!';
+            feedback.className = 'quiz-feedback feedback-wrong';
+        }
+
+        feedback.style.display = 'block';
+
+        if (answered.size === total) {
+            setTimeout(showResult, 800);
+        }
+    }
+
+    function showResult() {
+        const pct = Math.round((correct / total) * 100);
+        const fr = document.getElementById('final-result');
+        document.getElementById('final-score').textContent = `Tvoj rezultat: ${correct} / ${total} (${pct}%)`;
+        let msg = '';
+        if (pct >= 90) msg = '🌟 IZVANREDNO! Pravi si poznavalac makroekonomije i ekonomske politike!';
+        else if (pct >= 75) msg = '🎯 ODLIČNO! Jako dobro si savladao/la materiju.';
+        else if (pct >= 60) msg = '👍 SOLIDNO! Vrati se na delove koji ti nisu bili jasni i pokušaj ponovo.';
+        else msg = '📚 Preporučujemo da pažljivo ponovo pročitaš lekciju – posebno delove o fiskalnoj i monetarnoj politici.';
+        document.getElementById('final-message').textContent = msg;
+        fr.style.display = 'block';
+        fr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function resetKviz() {
+        correct = 0;
+        answered.clear();
+        document.querySelectorAll('.quiz-option').forEach(o => {
+            o.style.background = ''; o.style.borderColor = ''; o.style.color = ''; o.style.pointerEvents = '';
+        });
+        document.querySelectorAll('.quiz-feedback').forEach(f => { f.style.display = 'none'; f.innerHTML = ''; f.className = 'quiz-feedback'; });
+        document.getElementById('final-result').style.display = 'none';
+        document.querySelector('.quiz-section').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Troškovi Poslovanja – Radni List</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --paper: #fdf8f0;
+    --cream: #f5ede0;
+    --rust: #c0420a;
+    --gold: #c8920a;
+    --sage: #3d6b3f;
+    --muted: #8a7a65;
+    --line: #d4c9b5;
+    --correct: #2d6a30;
+    --wrong: #a02020;
+    --highlight: #fff3cd;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--paper);
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px 0;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 27px,
+        rgba(180,160,130,0.13) 27px,
+        rgba(180,160,130,0.13) 28px
+      );
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 36px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 12px,
+      rgba(255,255,255,0.025) 12px,
+      rgba(255,255,255,0.025) 13px
+    );
+  }
+  .header-inner {
+    position: relative;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .subject-tag {
+    font-family: 'Source Serif 4', serif;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -0.5px;
+  }
+  .header h1 span { color: var(--gold); }
+  .header-meta {
+    text-align: right;
+    font-size: 12px; color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+  }
+  .header-meta strong { color: rgba(255,255,255,0.85); font-size: 13px; }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    background: #2e2418;
+    padding: 10px 40px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .progress-label { font-size: 11px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
+  .progress-bar-bg {
+    flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; background: var(--gold);
+    width: 0%; transition: width 0.5s ease;
+    border-radius: 3px;
+  }
+  .progress-score {
+    font-size: 12px; color: rgba(255,255,255,0.6); white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* SECTION */
+  .section {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 24px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--rust);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--rust); opacity: 0.3;
+  }
+
+  /* CARDS */
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 28px 32px;
+    margin-bottom: 18px;
+    position: relative;
+    box-shadow: 2px 2px 0 var(--line);
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 3px 3px 0 rgba(180,160,130,0.4); }
+  .card-num {
+    position: absolute; top: -1px; left: -1px;
+    background: var(--rust); color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 11px; font-weight: 700;
+    padding: 3px 10px;
+    letter-spacing: 1px;
+  }
+  .card .question {
+    font-size: 15.5px; line-height: 1.65;
+    margin-top: 18px;
+    font-weight: 400;
+  }
+  .card .question strong { color: var(--rust); }
+
+  /* MULTIPLE CHOICE */
+  .choices { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .choice {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 14.5px; line-height: 1.5;
+    transition: background 0.15s, border-color 0.15s;
+    position: relative;
+  }
+  .choice:hover { background: var(--cream); border-color: var(--gold); }
+  .choice .badge {
+    min-width: 22px; height: 22px;
+    border: 1.5px solid var(--muted);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    font-family: 'Playfair Display', serif;
+    flex-shrink: 0; margin-top: 1px;
+    transition: all 0.15s;
+  }
+  .choice.selected { background: #fef9ec; border-color: var(--gold); }
+  .choice.selected .badge { background: var(--gold); border-color: var(--gold); color: white; }
+  .choice.correct { background: #edf7ee; border-color: var(--correct); }
+  .choice.correct .badge { background: var(--correct); border-color: var(--correct); color: white; }
+  .choice.wrong { background: #fceaea; border-color: var(--wrong); }
+  .choice.wrong .badge { background: var(--wrong); border-color: var(--wrong); color: white; }
+  .choice.reveal-correct { background: #edf7ee; border-color: var(--correct); opacity: 0.7; }
+
+  /* TRUE/FALSE */
+  .tf-row { display: flex; gap: 10px; margin-top: 14px; }
+  .tf-btn {
+    flex: 1; padding: 11px;
+    border: 1.5px solid var(--line); border-radius: 2px;
+    background: white; font-family: 'Source Serif 4', serif;
+    font-size: 14px; cursor: pointer; font-weight: 600;
+    transition: all 0.15s;
+  }
+  .tf-btn:hover { border-color: var(--gold); background: var(--cream); }
+  .tf-btn.selected { border-color: var(--gold); background: #fef9ec; color: var(--ink); }
+  .tf-btn.correct { border-color: var(--correct); background: #edf7ee; color: var(--correct); }
+  .tf-btn.wrong { border-color: var(--wrong); background: #fceaea; color: var(--wrong); }
+
+  /* TEXT INPUT */
+  .answer-input {
+    margin-top: 14px;
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid var(--line); border-radius: 2px;
+    font-family: 'Source Serif 4', serif; font-size: 15px;
+    background: var(--paper); color: var(--ink);
+    outline: none; transition: border-color 0.15s;
+  }
+  .answer-input:focus { border-color: var(--gold); background: white; }
+  .answer-input.correct { border-color: var(--correct); background: #edf7ee; }
+  .answer-input.wrong { border-color: var(--wrong); background: #fceaea; }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 12px; padding: 10px 14px;
+    border-radius: 2px; font-size: 13.5px;
+    display: none; line-height: 1.55;
+  }
+  .feedback.show { display: block; animation: fadeIn 0.25s ease; }
+  .feedback.correct { background: #edf7ee; color: var(--correct); border-left: 3px solid var(--correct); }
+  .feedback.wrong { background: #fceaea; color: var(--wrong); border-left: 3px solid var(--wrong); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* CHECK BUTTON */
+  .check-btn {
+    margin-top: 14px;
+    padding: 9px 22px;
+    background: var(--ink); color: white;
+    border: none; border-radius: 2px;
+    font-family: 'Source Serif 4', serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.5px; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .check-btn:hover { background: var(--rust); }
+  .check-btn:disabled { background: var(--muted); cursor: not-allowed; }
+
+  /* ZADACI SA REŠENJIMA */
+  .zadatak-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--sage);
+    border-radius: 2px;
+    padding: 28px 32px;
+    margin-bottom: 22px;
+    box-shadow: 2px 2px 0 var(--line);
+  }
+  .zadatak-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .zadatak-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 700; color: var(--sage);
+  }
+  .zadatak-body {
+    font-size: 15px; line-height: 1.7; color: var(--ink);
+  }
+  .zadatak-body p { margin-bottom: 10px; }
+  .zadatak-body ul { margin: 10px 0 10px 22px; }
+  .zadatak-body ul li { margin-bottom: 4px; }
+  .zadatak-body .formula {
+    background: #fef9ec;
+    border-left: 3px solid var(--gold);
+    padding: 10px 16px;
+    margin: 14px 0;
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th {
+    background: var(--ink); color: white;
+    padding: 8px 12px; text-align: left;
+    font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  tr:nth-child(even) td { background: var(--cream); }
+  tr:last-child td { border-bottom: none; }
+  td.calc { font-weight: 600; color: var(--rust); }
+
+  /* RESENJE TOGGLE */
+  .resenje-toggle {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 18px;
+    padding: 10px 16px;
+    background: var(--cream); border: 1px dashed var(--sage);
+    border-radius: 2px; cursor: pointer;
+    font-size: 13px; color: var(--sage); font-weight: 600;
+    user-select: none; transition: background 0.15s;
+  }
+  .resenje-toggle:hover { background: #e0ede0; }
+  .resenje-toggle .arrow { transition: transform 0.25s; }
+  .resenje-toggle.open .arrow { transform: rotate(90deg); }
+  .resenje-box {
+    display: none;
+    background: #f0f7f0;
+    border: 1px solid #b2d4b2;
+    border-top: none;
+    padding: 18px 20px;
+    font-size: 14.5px; line-height: 1.7;
+    animation: fadeIn 0.2s ease;
+  }
+  .resenje-box.show { display: block; }
+  .resenje-box strong { color: var(--sage); }
+  .resenje-box .step {
+    display: flex; gap: 10px; margin-bottom: 8px;
+    padding-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .resenje-box .step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .step-num {
+    min-width: 22px; height: 22px;
+    background: var(--sage); color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+  .final-answer {
+    margin-top: 10px; padding: 10px 14px;
+    background: white; border-left: 3px solid var(--sage);
+    font-weight: 600; font-size: 15px; color: var(--sage);
+  }
+
+  /* FILL TABLE */
+  .fill-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13.5px; }
+  .fill-table th { background: var(--ink); color: white; padding: 8px 10px; font-size: 12px; }
+  .fill-table td { padding: 6px 8px; border: 1px solid var(--line); }
+  .fill-table tr:nth-child(even) td { background: #faf8f4; }
+  .fill-input {
+    width: 100%; border: none; background: transparent;
+    border-bottom: 1.5px solid var(--gold);
+    font-family: 'Source Serif 4', serif; font-size: 13px;
+    color: var(--ink); outline: none; padding: 2px 4px;
+    text-align: right;
+  }
+  .fill-input:focus { border-bottom-color: var(--rust); background: #fffdf5; }
+  .fill-input.correct-fill { border-bottom-color: var(--correct); color: var(--correct); }
+  .fill-input.wrong-fill { border-bottom-color: var(--wrong); color: var(--wrong); }
+
+  /* F/V TOGGLE BUTTONS */
+  .fv-btn {
+    width: 46px; height: 34px;
+    border: 2px solid var(--line); border-radius: 4px;
+    background: var(--paper); color: var(--muted);
+    font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: all 0.15s; letter-spacing: 1px;
+  }
+  .fv-btn:hover { border-color: var(--gold); background: #fef9ec; color: var(--ink); }
+  .fv-btn.chosen-F { background: #e8f0fe; border-color: #4a6fa5; color: #2d4a7a; }
+  .fv-btn.chosen-V { background: #fce8ff; border-color: #8a4a9a; color: #5a2a6a; }
+  .fv-btn.result-correct { background: #edf7ee; border-color: var(--correct); color: var(--correct); pointer-events: none; }
+  .fv-btn.result-wrong { background: #fceaea; border-color: var(--wrong); color: var(--wrong); pointer-events: none; }
+
+  /* TABLE INPUTS IN ZADACI */
+  .tbl-input {
+    width: 100%; max-width: 110px; padding: 5px 8px;
+    border: 1.5px solid var(--gold); border-radius: 3px;
+    font-family: 'Source Serif 4', serif; font-size: 13px;
+    background: #fffdf5; color: var(--ink); outline: none;
+    text-align: right; transition: border-color 0.15s;
+  }
+  .tbl-input:focus { border-color: var(--rust); background: white; }
+  .tbl-input.tbl-correct { border-color: var(--correct); background: #edf7ee; color: var(--correct); font-weight: 700; }
+  .tbl-input.tbl-wrong { border-color: var(--wrong); background: #fceaea; color: var(--wrong); }
+
+  /* SUMMARY */
+  .summary-bar {
+    max-width: 860px; margin: 40px auto 0; padding: 0 24px;
+  }
+  .summary-card {
+    background: var(--ink); color: white;
+    border-radius: 2px; padding: 28px 32px;
+    display: flex; gap: 30px; flex-wrap: wrap; align-items: center;
+    justify-content: space-between;
+  }
+  .sum-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--gold); margin-bottom: 4px;
+  }
+  .sum-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .sum-stats { display: flex; gap: 30px; }
+  .sum-stat { text-align: center; }
+  .sum-stat .num {
+    font-family: 'Playfair Display', serif; font-size: 34px;
+    font-weight: 900; color: var(--gold); line-height: 1;
+  }
+  .sum-stat .lbl { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 1px; text-transform: uppercase; }
+  .reset-btn {
+    padding: 10px 24px;
+    border: 1.5px solid var(--gold); border-radius: 2px;
+    background: transparent; color: var(--gold);
+    font-family: 'Source Serif 4', serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.5px;
+    transition: all 0.15s;
+  }
+  .reset-btn:hover { background: var(--gold); color: var(--ink); }
+
+  /* CONCEPT BOX */
+  .concept {
+    background: var(--cream); border-left: 4px solid var(--gold);
+    padding: 14px 18px; margin: 14px 0;
+    font-size: 14px; line-height: 1.6;
+  }
+  .concept strong { color: var(--rust); }
+
+  .badge-type {
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px; margin-top: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .header { padding: 24px 20px 18px; }
+    .card, .zadatak-card { padding: 20px 18px; }
+    .section { padding: 0 14px; }
+    .sum-stats { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <div class="subject-tag">Principi Ekonomije 1 · ETŠ Bečej</div>
+      <h1>Troškovi <span>Poslovanja</span></h1>
+    </div>
+    <div class="header-meta">
+      <strong>Radni List</strong><br>
+      I razred · Olga Popović<br>
+      Datum: _______________
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <span class="progress-label">Napredak</span>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+  <span class="progress-score" id="progressScore">0 / 0 odgovoreno</span>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- DEO 1: PITANJA SA PONUĐENIM ODGOVORIMA     -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Deo I — Pitanja sa ponuđenim odgovorima</div>
+
+  <!-- Q1 -->
+  <div class="card" id="card-q1">
+    <div class="card-num">01</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Šta se podrazumeva pod pojmom <strong>troškovi poslovanja</strong>?</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q1','A')"><div class="badge">A</div>Iznos koji preduzeće zaradi prodajom svojih proizvoda</div>
+      <div class="choice" onclick="selectChoice('q1','B')"><div class="badge">B</div>Iznos koji preduzeće plaća za inpute koje nabavlja i koristi u proizvodnji</div>
+      <div class="choice" onclick="selectChoice('q1','C')"><div class="badge">C</div>Razlika između prihoda i plate direktora</div>
+      <div class="choice" onclick="selectChoice('q1','D')"><div class="badge">D</div>Vrednost neprodatih zaliha u skladištu</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q1','B')" id="btn-q1">Proveri odgovor</button>
+    <div class="feedback" id="fb-q1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" id="card-q2">
+    <div class="card-num">02</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Koji od sledećih troškova je primer <strong>amortizacije</strong>?</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q2','A')"><div class="badge">A</div>Kupovina kože za pravljenje cipela ovog meseca</div>
+      <div class="choice" onclick="selectChoice('q2','B')"><div class="badge">B</div>Postepeno trošenje i umanjivanje vrednosti mašine za šivenje</div>
+      <div class="choice" onclick="selectChoice('q2','C')"><div class="badge">C</div>Isplata plate radniku na liniji proizvodnje</div>
+      <div class="choice" onclick="selectChoice('q2','D')"><div class="badge">D</div>Troškovi reklame u novinama</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q2','B')" id="btn-q2">Proveri odgovor</button>
+    <div class="feedback" id="fb-q2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card" id="card-q3">
+    <div class="card-num">03</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Preduzeće je u jednom mesecu ostvarilo ukupan prihod od <strong>500.000 din.</strong> i ukupne troškove od <strong>420.000 din.</strong> Koji je finansijski rezultat?</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q3','A')"><div class="badge">A</div>Gubitak od 80.000 din.</div>
+      <div class="choice" onclick="selectChoice('q3','B')"><div class="badge">B</div>Profit od 920.000 din.</div>
+      <div class="choice" onclick="selectChoice('q3','C')"><div class="badge">C</div>Profit od 80.000 din.</div>
+      <div class="choice" onclick="selectChoice('q3','D')"><div class="badge">D</div>Preduzeće je „na nuli"</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q3','C')" id="btn-q3">Proveri odgovor</button>
+    <div class="feedback" id="fb-q3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" id="card-q4">
+    <div class="card-num">04</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Fabrika cipela plaća zakup hale 60.000 din. mesečno bez obzira da li proizvede 100 ili 10.000 pari cipela. Ovo je primer:</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q4','A')"><div class="badge">A</div>Varijabilnog troška</div>
+      <div class="choice" onclick="selectChoice('q4','B')"><div class="badge">B</div>Fiksnog troška</div>
+      <div class="choice" onclick="selectChoice('q4','C')"><div class="badge">C</div>Marginalnog troška</div>
+      <div class="choice" onclick="selectChoice('q4','D')"><div class="badge">D</div>Prosečnog troška</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q4','B')" id="btn-q4">Proveri odgovor</button>
+    <div class="feedback" id="fb-q4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" id="card-q5">
+    <div class="card-num">05</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Ukupni prihod preduzeća se izračunava kao:</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q5','A')"><div class="badge">A</div>Ukupni troškovi – Profit</div>
+      <div class="choice" onclick="selectChoice('q5','B')"><div class="badge">B</div>Prodata količina × Cena po jedinici</div>
+      <div class="choice" onclick="selectChoice('q5','C')"><div class="badge">C</div>Ukupni troškovi + Amortizacija</div>
+      <div class="choice" onclick="selectChoice('q5','D')"><div class="badge">D</div>Broj zaposlenih × Prosečna plata</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q5','B')" id="btn-q5">Proveri odgovor</button>
+    <div class="feedback" id="fb-q5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="card" id="card-q6">
+    <div class="card-num">06</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Koji od sledećih troškova je <strong>varijabilni</strong>?</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q6','A')"><div class="badge">A</div>Kamata na kredit za kupovinu mašine</div>
+      <div class="choice" onclick="selectChoice('q6','B')"><div class="badge">B</div>Plata direktora preduzeća</div>
+      <div class="choice" onclick="selectChoice('q6','C')"><div class="badge">C</div>Troškovi materijala koji se ugrađuju u proizvod</div>
+      <div class="choice" onclick="selectChoice('q6','D')"><div class="badge">D</div>Mesečna zakupnina poslovnog prostora</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q6','C')" id="btn-q6">Proveri odgovor</button>
+    <div class="feedback" id="fb-q6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="card" id="card-q7">
+    <div class="card-num">07</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Pekarnica „Zlatna pšenica" prodala je 3.000 kifli po 20 dinara. Ukupni troškovi iznose 48.000 din. Koji je finansijski rezultat?</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q7','A')"><div class="badge">A</div>Profit od 12.000 din.</div>
+      <div class="choice" onclick="selectChoice('q7','B')"><div class="badge">B</div>Gubitak od 12.000 din.</div>
+      <div class="choice" onclick="selectChoice('q7','C')"><div class="badge">C</div>Profit od 60.000 din.</div>
+      <div class="choice" onclick="selectChoice('q7','D')"><div class="badge">D</div>Gubitak od 48.000 din.</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q7','A')" id="btn-q7">Proveri odgovor</button>
+    <div class="feedback" id="fb-q7"></div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="card" id="card-q8">
+    <div class="card-num">08</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Kako se zovu troškovi koji nastaju kada se obim proizvodnje poveća za <strong>jednu dodatnu jedinicu</strong> proizvoda?</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q8','A')"><div class="badge">A</div>Prosečni troškovi</div>
+      <div class="choice" onclick="selectChoice('q8','B')"><div class="badge">B</div>Fiksni troškovi</div>
+      <div class="choice" onclick="selectChoice('q8','C')"><div class="badge">C</div>Marginalni (granični) troškovi</div>
+      <div class="choice" onclick="selectChoice('q8','D')"><div class="badge">D</div>Računovodstveni troškovi</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q8','C')" id="btn-q8">Proveri odgovor</button>
+    <div class="feedback" id="fb-q8"></div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="card" id="card-q9">
+    <div class="card-num">09</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Preduzeće „Javor" prodalo je <strong>200 stolova</strong> po 2.200 din/kom. i <strong>300 stolica</strong> po 1.200 din/kom. Ukupni troškovi izrade iznose 1.000.000 din. Koji je finansijski rezultat?</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q9','A')"><div class="badge">A</div>Gubitak od 200.000 din.</div>
+      <div class="choice" onclick="selectChoice('q9','B')"><div class="badge">B</div>Profit od 800.000 din.</div>
+      <div class="choice" onclick="selectChoice('q9','C')"><div class="badge">C</div>Profit od 200.000 din.</div>
+      <div class="choice" onclick="selectChoice('q9','D')"><div class="badge">D</div>Gubitak od 700.000 din.</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q9','A')" id="btn-q9">Proveri odgovor</button>
+    <div class="feedback" id="fb-q9"></div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="card" id="card-q10">
+    <div class="card-num">10</div>
+    <div class="badge-type">Jedan tačan odgovor</div>
+    <div class="question">Ako se obim proizvodnje poveća sa 100 na 200 komada, šta se dešava sa <strong>ukupnim proporcionalnim varijabilnim troškovima</strong> koji su iznosili 16.000 din. za 100 kom.?</div>
+    <div class="choices">
+      <div class="choice" onclick="selectChoice('q10','A')"><div class="badge">A</div>Ostaju isti – 16.000 din.</div>
+      <div class="choice" onclick="selectChoice('q10','B')"><div class="badge">B</div>Rastu na 32.000 din.</div>
+      <div class="choice" onclick="selectChoice('q10','C')"><div class="badge">C</div>Smanjuju se na 8.000 din.</div>
+      <div class="choice" onclick="selectChoice('q10','D')"><div class="badge">D</div>Povećavaju se na 24.000 din.</div>
+    </div>
+    <button class="check-btn" onclick="checkMC('q10','B')" id="btn-q10">Proveri odgovor</button>
+    <div class="feedback" id="fb-q10"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- DEO 2: TAČNO / NETAČNO                     -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Deo II — Tačno ili netačno</div>
+
+  <!-- TF1 -->
+  <div class="card" id="card-tf1">
+    <div class="card-num">11</div>
+    <div class="badge-type">Tačno / Netačno</div>
+    <div class="question">Fiksni troškovi se moraju platiti čak i kada preduzeće ne proizvede nijedan komad proizvoda.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="selectTF('tf1','true','true')">✓ Tačno</button>
+      <button class="tf-btn" onclick="selectTF('tf1','false','true')">✗ Netačno</button>
+    </div>
+    <div class="feedback" id="fb-tf1"></div>
+  </div>
+
+  <!-- TF2 -->
+  <div class="card" id="card-tf2">
+    <div class="card-num">12</div>
+    <div class="badge-type">Tačno / Netačno</div>
+    <div class="question">Prosečni fiksni troškovi <em>rastu</em> kada se povećava obim proizvodnje.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="selectTF('tf2','true','false')">✓ Tačno</button>
+      <button class="tf-btn" onclick="selectTF('tf2','false','false')">✗ Netačno</button>
+    </div>
+    <div class="feedback" id="fb-tf2"></div>
+  </div>
+
+  <!-- TF3 -->
+  <div class="card" id="card-tf3">
+    <div class="card-num">13</div>
+    <div class="badge-type">Tačno / Netačno</div>
+    <div class="question">Ukupni troškovi preduzeća jednaki su zbiru fiksnih i varijabilnih troškova.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="selectTF('tf3','true','true')">✓ Tačno</button>
+      <button class="tf-btn" onclick="selectTF('tf3','false','true')">✗ Netačno</button>
+    </div>
+    <div class="feedback" id="fb-tf3"></div>
+  </div>
+
+  <!-- TF4 -->
+  <div class="card" id="card-tf4">
+    <div class="card-num">14</div>
+    <div class="badge-type">Tačno / Netačno</div>
+    <div class="question">Troškovi materijala za pravljenje proizvoda su fiksni troškovi jer se uvek kupuje ista količina.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="selectTF('tf4','true','false')">✓ Tačno</button>
+      <button class="tf-btn" onclick="selectTF('tf4','false','false')">✗ Netačno</button>
+    </div>
+    <div class="feedback" id="fb-tf4"></div>
+  </div>
+
+  <!-- TF5 -->
+  <div class="card" id="card-tf5">
+    <div class="card-num">15</div>
+    <div class="badge-type">Tačno / Netačno</div>
+    <div class="question">Profit se dobija kada od ukupnog prihoda oduzmemo ukupne troškove.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="selectTF('tf5','true','true')">✓ Tačno</button>
+      <button class="tf-btn" onclick="selectTF('tf5','false','true')">✗ Netačno</button>
+    </div>
+    <div class="feedback" id="fb-tf5"></div>
+  </div>
+
+  <!-- TF6 -->
+  <div class="card" id="card-tf6">
+    <div class="card-num">16</div>
+    <div class="badge-type">Tačno / Netačno</div>
+    <div class="question">Ako se obim proizvodnje smanji sa 500 na 300 komada, ukupni fiksni troškovi od 450.000 din. <em>se smanjuju</em> proporcionalno.</div>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="selectTF('tf6','true','false')">✓ Tačno</button>
+      <button class="tf-btn" onclick="selectTF('tf6','false','false')">✗ Netačno</button>
+    </div>
+    <div class="feedback" id="fb-tf6"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- DEO 3: RAZVRSTAJ TROŠKOVE                  -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Deo III — Razvrstaj troškove</div>
+
+  <div class="card">
+    <div class="card-num">17</div>
+    <div class="badge-type">Klasifikacija – klikni da odabereš F ili V</div>
+    <div class="question">Pored svakog troška odaberi <strong>F</strong> (fiksni) ili <strong>V</strong> (varijabilni) klikom na dugme:</div>
+    <div style="margin-top:16px;">
+      <table>
+        <tr>
+          <th style="width:55%">Vrsta troška</th>
+          <th style="text-align:center">Tvoj odgovor</th>
+          <th style="text-align:center">Tačno</th>
+        </tr>
+        <tr>
+          <td>Zakup poslovnog prostora</td>
+          <td style="text-align:center"><button class="fv-btn" id="cl1" onclick="toggleFV('cl1')">?</button></td>
+          <td id="clans1" style="display:none;font-weight:700;color:var(--sage);text-align:center">F</td>
+        </tr>
+        <tr>
+          <td>Koža za pravljenje cipela</td>
+          <td style="text-align:center"><button class="fv-btn" id="cl2" onclick="toggleFV('cl2')">?</button></td>
+          <td id="clans2" style="display:none;font-weight:700;color:var(--sage);text-align:center">V</td>
+        </tr>
+        <tr>
+          <td>Osiguranje mašine</td>
+          <td style="text-align:center"><button class="fv-btn" id="cl3" onclick="toggleFV('cl3')">?</button></td>
+          <td id="clans3" style="display:none;font-weight:700;color:var(--sage);text-align:center">F</td>
+        </tr>
+        <tr>
+          <td>Struja za pogon</td>
+          <td style="text-align:center"><button class="fv-btn" id="cl4" onclick="toggleFV('cl4')">?</button></td>
+          <td id="clans4" style="display:none;font-weight:700;color:var(--sage);text-align:center">V</td>
+        </tr>
+        <tr>
+          <td>Plata direktora</td>
+          <td style="text-align:center"><button class="fv-btn" id="cl5" onclick="toggleFV('cl5')">?</button></td>
+          <td id="clans5" style="display:none;font-weight:700;color:var(--sage);text-align:center">F</td>
+        </tr>
+        <tr>
+          <td>Plate radnika u proizvodnji</td>
+          <td style="text-align:center"><button class="fv-btn" id="cl6" onclick="toggleFV('cl6')">?</button></td>
+          <td id="clans6" style="display:none;font-weight:700;color:var(--sage);text-align:center">V</td>
+        </tr>
+        <tr>
+          <td>Kamata na kredit za mašinu</td>
+          <td style="text-align:center"><button class="fv-btn" id="cl7" onclick="toggleFV('cl7')">?</button></td>
+          <td id="clans7" style="display:none;font-weight:700;color:var(--sage);text-align:center">F</td>
+        </tr>
+        <tr>
+          <td>Voda u proizvodnom procesu</td>
+          <td style="text-align:center"><button class="fv-btn" id="cl8" onclick="toggleFV('cl8')">?</button></td>
+          <td id="clans8" style="display:none;font-weight:700;color:var(--sage);text-align:center">V</td>
+        </tr>
+      </table>
+      <button class="check-btn" onclick="checkClassification()">Proveri klasifikaciju</button>
+      <div class="feedback" id="fb-cl"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- DEO IV: POPUNI REČENICU                    -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Deo IV — Popuni praznine</div>
+
+  <div class="card" id="card-fill1">
+    <div class="card-num">18</div>
+    <div class="badge-type">Popuni prazninu – finansijski rezultat</div>
+    <div class="question">Finansijski rezultat preduzeća može biti:</div>
+    <div style="margin-top:14px; line-height:2.2; font-size:15px;">
+      <p>• Ako je UP <strong>veći</strong> od UT → ostvarili smo <input class="answer-input" id="fi1a" placeholder="upiši odgovor" style="width:160px;display:inline-block"> (zaradu)</p>
+      <p>• Ako je UP <strong>manji</strong> od UT → ostvarili smo <input class="answer-input" id="fi1b" placeholder="upiši odgovor" style="width:160px;display:inline-block"></p>
+      <p>• Ako je UP <strong>jednak</strong> UT → ostvarili smo <input class="answer-input" id="fi1c" placeholder="upiši odgovor" style="width:200px;display:inline-block"> (nula rezultat)</p>
+    </div>
+    <button class="check-btn" onclick="checkFill1()">Proveri odgovor</button>
+    <div class="feedback" id="fb-fill1"></div>
+  </div>
+
+  <div class="card" id="card-fill2">
+    <div class="card-num">19</div>
+    <div class="badge-type">Popuni prazninu – prosečni troškovi</div>
+    <div class="question">Prosečni troškovi su troškovi po <strong>jednoj jedinici</strong> proizvoda. Poveži formule:</div>
+    <div style="margin-top:14px; line-height:2.4; font-size:15px;">
+      <p>• Prosečni ukupni troškovi: PUT = UT ÷ <input class="answer-input" id="fi2a" placeholder="?" style="width:80px;display:inline-block"></p>
+      <p>• Prosečni fiksni troškovi: PFT = <input class="answer-input" id="fi2b" placeholder="?" style="width:60px;display:inline-block"> ÷ Q</p>
+      <p>• Prosečni varijabilni troškovi: PVT = VT ÷ <input class="answer-input" id="fi2c" placeholder="?" style="width:80px;display:inline-block"></p>
+    </div>
+    <button class="check-btn" onclick="checkFill2()">Proveri odgovor</button>
+    <div class="feedback" id="fb-fill2"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- DEO V: ZADACI SA REŠENJIMA                 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Deo V — Zadaci za vežbu (sa rešenjima)</div>
+
+  <!-- ZADATAK 1 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 1 — Pekarnica „Zlatni klasić"</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Pekarnica „Zlatni klasić" bavi se proizvodnjom hleba. Tokom oktobra, pekarnica je <strong>proizvela i prodala 8.000 vekni hleba</strong> po ceni od <strong>75 dinara</strong> po vekni.</p>
+      <p>Troškovi u tom mesecu bili su:</p>
+      <ul>
+        <li>Troškovi brašna i ostalih sastojaka: 180.000 din.</li>
+        <li>Plate pekara: 120.000 din.</li>
+        <li>Amortizacija opreme: 24.000 din.</li>
+        <li>Zakup prostora: 36.000 din.</li>
+        <li>Struja i voda: 40.000 din.</li>
+      </ul>
+      <p><strong>Izračunaj:</strong></p>
+      <ul>
+        <li>a) Ukupan prihod pekarnice</li>
+        <li>b) Ukupne troškove</li>
+        <li>c) Finansijski rezultat (profit ili gubitak)</li>
+        <li>d) Prosečni ukupni trošak po vekni hleba</li>
+      </ul>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r1')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r1">
+      <div class="step"><div class="step-num">a</div><div><strong>Ukupan prihod:</strong><br>UP = Q × C = 8.000 × 75 = <strong>600.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">b</div><div><strong>Ukupni troškovi:</strong><br>UT = 180.000 + 120.000 + 24.000 + 36.000 + 40.000 = <strong>400.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">c</div><div><strong>Finansijski rezultat:</strong><br>P = UP – UT = 600.000 – 400.000 = <strong>200.000 din. (PROFIT)</strong></div></div>
+      <div class="step"><div class="step-num">d</div><div><strong>Prosečni ukupni trošak:</strong><br>PUT = UT / Q = 400.000 / 8.000 = <strong>50 din. po vekni</strong></div></div>
+      <div class="final-answer">✓ Pekarnica je ostvarila profit od 200.000 din. Cena od 75 din. pokriva sve troškove i obezbeđuje zaradu od 25 din. po vekni.</div>
+    </div>
+  </div>
+
+  <!-- ZADATAK 2 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 2 — Fiksni i varijabilni troškovi (tabela)</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Fabrika obuće „Stil" ima sledeće mesečne troškove:</p>
+      <ul>
+        <li>Zakup fabrike: 80.000 din.</li>
+        <li>Plate menadžera: 60.000 din.</li>
+        <li>Amortizacija mašina: 40.000 din.</li>
+        <li>Koža po paru: 800 din.</li>
+        <li>Plate radnika u proizvodnji (po paru): 500 din.</li>
+        <li>Struja za pogon (po paru): 200 din.</li>
+      </ul>
+      <p>Fabrika je u posmatranom mesecu proizvela <strong>1.000 pari cipela</strong>.</p>
+      <p><strong>Izračunaj:</strong> ukupne fiksne troškove, ukupne varijabilne troškove, ukupne troškove i prosečni ukupni trošak.</p>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r2')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r2">
+      <div class="step"><div class="step-num">1</div><div><strong>Ukupni fiksni troškovi (UFT):</strong><br>UFT = 80.000 + 60.000 + 40.000 = <strong>180.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Ukupni varijabilni troškovi (UVT):</strong><br>UVT = (800 + 500 + 200) × 1.000 = 1.500 × 1.000 = <strong>1.500.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Ukupni troškovi (UT):</strong><br>UT = UFT + UVT = 180.000 + 1.500.000 = <strong>1.680.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Prosečni ukupni trošak (PUT):</strong><br>PUT = UT / Q = 1.680.000 / 1.000 = <strong>1.680 din. po paru</strong></div></div>
+      <div class="final-answer">✓ Fabrika mora prodavati cipele po ceni višoj od 1.680 din. da bi ostvarila profit.</div>
+    </div>
+  </div>
+
+  <!-- ZADATAK 3 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 3 — Prosečni fiksni troškovi i ekonomija obima</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Restoran „Kod Marka" plaća mesečnu zakupninu 36.000 din. i amortizaciju opreme 12.000 din. Izračunaj PFT i popuni tabelu:</p>
+      <table>
+        <tr>
+          <th>Mesec</th>
+          <th>Broj obroka (Q)</th>
+          <th>UFT (din.)</th>
+          <th>PFT = UFT/Q (din.)</th>
+        </tr>
+        <tr>
+          <td>Januar</td><td>600</td><td>48.000</td>
+          <td><input class="tbl-input" id="z3r1" placeholder="?" type="number"></td>
+        </tr>
+        <tr>
+          <td>Februar</td><td>800</td><td>48.000</td>
+          <td><input class="tbl-input" id="z3r2" placeholder="?" type="number"></td>
+        </tr>
+        <tr>
+          <td>Mart</td><td>1.200</td><td>48.000</td>
+          <td><input class="tbl-input" id="z3r3" placeholder="?" type="number"></td>
+        </tr>
+        <tr>
+          <td>April</td><td>2.400</td><td>48.000</td>
+          <td><input class="tbl-input" id="z3r4" placeholder="?" type="number"></td>
+        </tr>
+      </table>
+      <p style="margin-top:10px"><strong>a)</strong> Šta se dešava sa prosečnim fiksnim troškom kako raste broj obroka?<br>
+      <strong>b)</strong> Zašto je restoranima važno da što više popune kapacitete?</p>
+      <button class="check-btn" onclick="checkZ3()">Proveri tabelu</button>
+      <div class="feedback" id="fb-z3"></div>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r3')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r3">
+      <div class="step"><div class="step-num">1</div><div>
+        <strong>Popunjena tabela:</strong><br>
+        Januar: 48.000 / 600 = <strong>80 din./obroku</strong><br>
+        Februar: 48.000 / 800 = <strong>60 din./obroku</strong><br>
+        Mart: 48.000 / 1.200 = <strong>40 din./obroku</strong><br>
+        April: 48.000 / 2.400 = <strong>20 din./obroku</strong>
+      </div></div>
+      <div class="step"><div class="step-num">a</div><div>Prosečni fiksni trošak <strong>opada</strong> sa povećanjem broja obroka. Isti fiksni iznos se "raspoređuje" na veći broj jedinica.</div></div>
+      <div class="step"><div class="step-num">b</div><div>Što je restoran popunjeniji, fiksni troškovi po obroku su niži, što omogućava nižu cenu ili veći profit – takozvana <em>ekonomija obima</em>.</div></div>
+      <div class="final-answer">✓ Ovo objašnjava zašto preduzeća teže ka što većem obimu proizvodnje – smanjuju prosečne fiksne troškove.</div>
+    </div>
+  </div>
+
+  <!-- ZADATAK 4 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 4 — Marginalni troškovi</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Radiona „Drvena bajka" pravi stolice. Izračunaj marginalni trošak za svaku stolicu i upiši u tabelu:</p>
+      <table>
+        <tr>
+          <th>Q (stolice)</th>
+          <th>Ukupni troškovi (din.)</th>
+          <th>Marginalni trošak (din.)</th>
+        </tr>
+        <tr><td>0</td><td>12.000</td><td style="text-align:center;color:var(--muted)">—</td></tr>
+        <tr><td>1</td><td>17.500</td><td><input class="tbl-input" id="z4r1" placeholder="?" type="number"></td></tr>
+        <tr><td>2</td><td>21.000</td><td><input class="tbl-input" id="z4r2" placeholder="?" type="number"></td></tr>
+        <tr><td>3</td><td>23.500</td><td><input class="tbl-input" id="z4r3" placeholder="?" type="number"></td></tr>
+        <tr><td>4</td><td>27.000</td><td><input class="tbl-input" id="z4r4" placeholder="?" type="number"></td></tr>
+        <tr><td>5</td><td>33.000</td><td><input class="tbl-input" id="z4r5" placeholder="?" type="number"></td></tr>
+      </table>
+      <p style="margin-top:10px"><strong>b)</strong> Ako je prodajna cena stolice 5.000 din., do kog obima se isplati povećavati proizvodnju?</p>
+      <button class="check-btn" onclick="checkZ4()">Proveri tabelu</button>
+      <div class="feedback" id="fb-z4"></div>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r4')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r4">
+      <div class="step"><div class="step-num">a</div><div>
+        <strong>Marginalni troškovi:</strong><br>
+        1. stolica: 17.500 – 12.000 = <strong>5.500 din.</strong><br>
+        2. stolica: 21.000 – 17.500 = <strong>3.500 din.</strong><br>
+        3. stolica: 23.500 – 21.000 = <strong>2.500 din.</strong><br>
+        4. stolica: 27.000 – 23.500 = <strong>3.500 din.</strong><br>
+        5. stolica: 33.000 – 27.000 = <strong>6.000 din.</strong>
+      </div></div>
+      <div class="step"><div class="step-num">b</div><div>
+        Cena je 5.000 din. Isplati se praviti stolicu sve dok je marginalni trošak niži od cene (5.000):<br>
+        • 1. stolica: MT = 5.500 &gt; 5.000 → ne isplati se odmah!<br>
+        • 2. stolica: MT = 3.500 &lt; 5.000 → isplati se<br>
+        • 3. stolica: MT = 2.500 &lt; 5.000 → isplati se<br>
+        • 4. stolica: MT = 3.500 &lt; 5.000 → isplati se<br>
+        • 5. stolica: MT = 6.000 &gt; 5.000 → ne isplati se!<br>
+        <br>
+        <strong>Optimalni obim je 4 stolice.</strong>
+      </div></div>
+      <div class="final-answer">✓ Preduzeće ne bi trebalo da pravi 5. stolicu jer bi marginalni trošak (6.000) premašio prihod od prodaje (5.000) – pravilo: proširuj dok je MT &lt; cena.</div>
+    </div>
+  </div>
+
+  <!-- ZADATAK 5 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 5 — Kompletna kalkulacija (iz udžbenika)</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Hamburgerija „Petar" bavi se proizvodnjom hamburgera, ima 6 zaposlenih. U julu 2010. godine proizvela je <strong>6.000 hamburgera</strong> i prodala ih po ceni od <strong>150 dinara</strong>.</p>
+      <p>Troškovi tog meseca:</p>
+      <ul>
+        <li>Troškovi materijala: 100.000 din.</li>
+        <li>Troškovi rada: 150.000 din.</li>
+        <li>Troškovi sredstava za rad: 8.000 din.</li>
+        <li>Režijski troškovi: 120.000 din.</li>
+        <li>Finansijski troškovi: 10.000 din.</li>
+      </ul>
+      <p><strong>Izračunaj i napiši rečenicu odgovora:</strong></p>
+      <ul>
+        <li>a) Vrednost proizvodnje (bruto-produkt)</li>
+        <li>b) Ukupan prihod</li>
+        <li>c) Finansijski rezultat</li>
+      </ul>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r5')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r5">
+      <div class="step"><div class="step-num">a</div><div><strong>Vrednost proizvodnje (bruto-produkt):</strong><br>BP = Q × C = 6.000 × 150 = <strong>900.000 din.</strong><br><em>Vrednost proizvodnje hamburgera u julu iznosi 900.000 dinara.</em></div></div>
+      <div class="step"><div class="step-num">b</div><div><strong>Ukupan prihod:</strong><br>Pošto su sve hamburgere prodali: UP = 6.000 × 150 = <strong>900.000 din.</strong><br><em>Ukupan prihod hamburgerije u julu iznosi 900.000 dinara.</em></div></div>
+      <div class="step"><div class="step-num">c</div><div><strong>Ukupni troškovi:</strong><br>UT = 100.000 + 150.000 + 8.000 + 120.000 + 10.000 = <strong>388.000 din.</strong><br><br><strong>Finansijski rezultat:</strong><br>FR = 900.000 – 388.000 = <strong>512.000 din. (PROFIT)</strong><br><em>Hamburgerija "Petar" je u julu 2010. ostvarila profit od 512.000 dinara.</em></div></div>
+      <div class="final-answer">✓ Finansijski rezultat je profit od 512.000 dinara.</div>
+    </div>
+  </div>
+</div>
+
+  <!-- ZADATAK 6 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 6 — Preduzeće „Kristal" iz Sente (šećer)</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Preduzeće „Kristal" iz Sente proizvelo je 2010. godine <strong>340 tona šećera</strong>. Te godine prodalo je <strong>325 tona</strong> po ceni od <strong>20.000 din/toni</strong>. Ukupni troškovi poslovanja iznosili su <strong>5.900.000 dinara</strong>.</p>
+      <p><strong>Izračunaj i napiši rečenicu odgovora:</strong></p>
+      <ul>
+        <li>a) Fizički proizvod (obim proizvodnje)</li>
+        <li>b) Vrednost proizvodnje (bruto-produkt)</li>
+        <li>c) Ukupan prihod</li>
+        <li>d) Finansijski rezultat – koji i koliki?</li>
+      </ul>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r6')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r6">
+      <div class="step"><div class="step-num">a</div><div><strong>Fizički proizvod (obim proizvodnje):</strong><br>Q = <strong>340 tona šećera</strong><br><em>Fizički proizvod preduzeća Kristal u 2010. je 340 tona šećera.</em></div></div>
+      <div class="step"><div class="step-num">b</div><div><strong>Vrednost proizvodnje (bruto-produkt):</strong><br>BP = Q × PC = 340 × 20.000 = <strong>6.800.000 din.</strong><br><em>Vrednost celokupne proizvodnje iznosi 6.800.000 dinara.</em></div></div>
+      <div class="step"><div class="step-num">c</div><div><strong>Ukupan prihod (od prodaje):</strong><br>UP = prodata količina × PC = 325 × 20.000 = <strong>6.500.000 din.</strong><br><em>⚠ Pažnja: prodato je 325, a ne 340 tona! Ukupan prihod = 6.500.000 din.</em></div></div>
+      <div class="step"><div class="step-num">d</div><div><strong>Finansijski rezultat:</strong><br>FR = UP − UT = 6.500.000 − 5.900.000 = <strong>600.000 din. (PROFIT)</strong><br><em>Preduzeće Kristal je u 2010. godini ostvarilo profit od 600.000 dinara.</em></div></div>
+      <div class="final-answer">✓ Ključna lekcija: bruto-produkt ≠ ukupan prihod! Prihod se računa samo od PRODATIH količina.</div>
+    </div>
+  </div>
+
+  <!-- ZADATAK 7 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 7 — Preduzeće „Kristal" (drugi period, veći obim)</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Preduzeće „Kristal" iz Sente u jednoj godini ima obim proizvodnje <strong>Q = 200.000 tona šećera</strong>, koji može da proda po ceni od <strong>200 din/toni</strong>. Troškovi su bili:</p>
+      <ul>
+        <li>Troškovi rada (Tl): 5.000.000 din.</li>
+        <li>Troškovi sredstava za rad (Ti): 5.000.000 din.</li>
+        <li>Troškovi materijala (Tm): 15.000.000 din.</li>
+        <li>Vanredni rashodi: 60.000 din.</li>
+        <li>Finansijski troškovi: 300.000 din.</li>
+      </ul>
+      <p><strong>Izračunaj finansijski rezultat (dobit ili gubitak).</strong></p>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r7')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r7">
+      <div class="step"><div class="step-num">1</div><div><strong>Ukupan prihod:</strong><br>UP = Q × PC = 200.000 × 200 = <strong>40.000.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Ukupni troškovi:</strong><br>UT = Tl + Ti + Tm + Vanredni + Finansijski<br>UT = 5.000.000 + 5.000.000 + 15.000.000 + 60.000 + 300.000 = <strong>25.360.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Finansijski rezultat:</strong><br>FR = 40.000.000 − 25.360.000 = <strong>14.640.000 din. (DOBIT)</strong><br><em>Preduzeće Kristal je ostvarilo dobit od 14.640.000 dinara.</em></div></div>
+      <div class="final-answer">✓ Preduzeće „Kristal" je profitabilno – ukupni prihod skoro duplo premašuje troškove.</div>
+    </div>
+  </div>
+
+  <!-- ZADATAK 8 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 8 — „Javor" iz Ivanjice (stolovi i stolice)</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Preduzeće „Javor" iz Ivanjice prodalo je u 2009. godini <strong>200 stolova</strong> po 2.200 din/kom. i <strong>300 stolica</strong> po 1.200 din/kom. Troškovi izrade te količine proizvoda iznosili su <strong>1.000.000 din.</strong></p>
+      <p><strong>Izračunaj finansijski rezultat i prokomentariši ga.</strong></p>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r8')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r8">
+      <div class="step"><div class="step-num">1</div><div><strong>Ukupan prihod od stolova:</strong><br>UP₁ = 200 × 2.200 = <strong>440.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Ukupan prihod od stolica:</strong><br>UP₂ = 300 × 1.200 = <strong>360.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Ukupan prihod zajedno:</strong><br>UP = 440.000 + 360.000 = <strong>800.000 din.</strong></div></div>
+      <div class="step"><div class="step-num">4</div><div><strong>Finansijski rezultat:</strong><br>FR = UP − UT = 800.000 − 1.000.000 = <strong>−200.000 din. (GUBITAK)</strong></div></div>
+      <div class="final-answer">✓ Komentar: Preduzeće „Javor" je u 2009. godini poslovalo sa gubitkom od 200.000 din. To znači da troškovi nisu pokriveni prihodom od prodaje – preduzeće mora ili da smanji troškove ili poveća cene/obim prodaje.</div>
+    </div>
+  </div>
+
+  <!-- ZADATAK 9 -->
+  <div class="zadatak-card">
+    <div class="zadatak-header">
+      <div class="zadatak-title">Zadatak 9 — Prosečni troškovi (obim 54.000 kg.)</div>
+    </div>
+    <div class="zadatak-body">
+      <p>Obim proizvodnje jednog preduzeća bio je <strong>54.000 kg.</strong> Ukupni fiksni troškovi iznose <strong>860.000 din.</strong>, a ukupni varijabilni <strong>1.110.000 din.</strong></p>
+      <p><strong>a)</strong> Izračunaj prosečne fiksne, prosečne varijabilne i prosečne ukupne troškove.</p>
+      <p><strong>b)</strong> Ako dođe do smanjenja proizvodnje na <strong>48.000 kg.</strong>, a ukupni varijabilni troškovi proporcionalno opadnu, šta se dešava sa svim prosečnim troškovima?</p>
+    </div>
+    <div class="resenje-toggle" onclick="toggleResenje('r9')">
+      <span class="arrow">▶</span> Prikaži rešenje
+    </div>
+    <div class="resenje-box" id="r9">
+      <div class="step"><div class="step-num">a</div><div>
+        <strong>Za Q = 54.000 kg.:</strong><br>
+        PFT = 860.000 / 54.000 = <strong>≈ 15,93 din/kg.</strong><br>
+        PVT = 1.110.000 / 54.000 = <strong>≈ 20,56 din/kg.</strong><br>
+        UT = 860.000 + 1.110.000 = 1.970.000 din.<br>
+        PUT = 1.970.000 / 54.000 = <strong>≈ 36,48 din/kg.</strong>
+      </div></div>
+      <div class="step"><div class="step-num">b</div><div>
+        <strong>Za Q = 48.000 kg.:</strong><br>
+        Novi UVT = 1.110.000 × (48.000/54.000) = <strong>986.667 din.</strong><br>
+        UFT ostaju isti: <strong>860.000 din.</strong><br><br>
+        PFT = 860.000 / 48.000 = <strong>≈ 17,92 din/kg.</strong> → <span style="color:var(--rust)">↑ raste</span><br>
+        PVT = 986.667 / 48.000 = <strong>≈ 20,56 din/kg.</strong> → ostaje isti<br>
+        PUT = (860.000 + 986.667) / 48.000 = <strong>≈ 38,47 din/kg.</strong> → <span style="color:var(--rust)">↑ raste</span>
+      </div></div>
+      <div class="final-answer">✓ Smanjenje obima povećava prosečne fiksne troškove – to su isti ukupni fiksni troškovi raspoređeni na manji broj kilograma. Prosečni varijabilni ostaju isti jer proporcionalno padaju i ukupni.</div>
+    </div>
+  </div>
+</div>
+<div class="summary-bar">
+  <div class="summary-card">
+    <div>
+      <div class="sum-title">Rezultat testa</div>
+      <div class="sum-sub">Interaktivna pitanja (Deo I, II, III)</div>
+    </div>
+    <div class="sum-stats">
+      <div class="sum-stat">
+        <div class="num" id="sumCorrect">0</div>
+        <div class="lbl">Tačnih</div>
+      </div>
+      <div class="sum-stat">
+        <div class="num" id="sumTotal">0</div>
+        <div class="lbl">Odgovoreno</div>
+      </div>
+      <div class="sum-stat">
+        <div class="num" id="sumPct">—</div>
+        <div class="lbl">Uspešnost</div>
+      </div>
+    </div>
+    <button class="reset-btn" onclick="resetAll()">↺ Počni iznova</button>
+  </div>
+</div>
+
+<script>
+// ── STATE ──────────────────────────────────────────
+const state = {
+  selected: {},  // questionId → chosen answer
+  answered: {},  // questionId → true/false (correct/wrong)
+};
+const TOTAL_QUESTIONS = 19; // 10 MC + 6 TF + 1 Classification + 2 Fill-blank
+
+// ── MC QUESTIONS ──────────────────────────────────
+function selectChoice(qid, choice) {
+  if (state.answered[qid]) return;
+  state.selected[qid] = choice;
+  const card = document.getElementById('card-' + qid);
+  card.querySelectorAll('.choice').forEach((el, i) => {
+    el.classList.remove('selected');
+    const letters = ['A','B','C','D'];
+    if (letters[i] === choice) el.classList.add('selected');
+  });
+}
+
+const mcFeedback = {
+  q1: { correct: 'Tačno! Troškovi su iznos koji preduzeće plaća za inpute u proizvodnji.', wrong: 'Netačno. Prihod je zarada od prodaje. Troškovi su ono što se plaća za inpute.' },
+  q2: { correct: 'Odlično! Amortizacija je postepeno trošenje mašina i opreme.', wrong: 'Netačno. Amortizacija se odnosi na postepeno trošenje mašina, ne na materijal, plate ili reklamu.' },
+  q3: { correct: 'Tačno! 500.000 – 420.000 = 80.000 din. profita.', wrong: 'Netačno. Profit = Ukupan prihod – Ukupni troškovi = 500.000 – 420.000 = 80.000 din.' },
+  q4: { correct: 'Tačno! Zakup se plaća isti iznos bez obzira na obim – to je fiksni trošak.', wrong: 'Netačno. Ovaj trošak ostaje isti bez obzira na obim → to je fiksni trošak.' },
+  q5: { correct: 'Tačno! UP = prodata količina × cena.', wrong: 'Netačno. Ukupan prihod = prodata količina × cena po jedinici.' },
+  q6: { correct: 'Tačno! Troškovi materijala rastu sa obimom → varijabilni trošak.', wrong: 'Netačno. Varijabilni troškovi se menjaju sa obimom. Materijal koji ulazi u proizvod je pravi primer.' },
+  q7: { correct: 'Tačno! UP = 3.000 × 20 = 60.000. Profit = 60.000 – 48.000 = 12.000 din.', wrong: 'Netačno. UP = 3.000 × 20 = 60.000. Profit = 60.000 – 48.000 = 12.000 din.' },
+  q8: { correct: 'Tačno! Marginalni (granični) troškovi nastaju zbog povećanja za jednu jedinicu.', wrong: 'Netačno. Marginalni troškovi su dodatni troškovi za jednu jedinicu više.' },
+  q9: { correct: 'Tačno! UP = 200×2.200 + 300×1.200 = 440.000 + 360.000 = 800.000 din. FR = 800.000 − 1.000.000 = −200.000 din. = GUBITAK od 200.000 din.', wrong: 'Netačno. UP = 200×2.200 + 300×1.200 = 800.000. FR = 800.000 − 1.000.000 = −200.000 din. Tačan odgovor je GUBITAK od 200.000 din.' },
+  q10: { correct: 'Tačno! Proporcionalni varijabilni troškovi rastu srazmerno obimu – dvostruki obim, dvostruki troškovi: 16.000 × 2 = 32.000 din.', wrong: 'Netačno. Proporcionalni varijabilni troškovi rastu srazmerno obimu. Obim je duplo veći → troškovi = 16.000 × 2 = 32.000 din.' },
+};
+
+function checkMC(qid, correct) {
+  const chosen = state.selected[qid];
+  if (!chosen) { alert('Izaberi odgovor pre provere!'); return; }
+  if (state.answered[qid]) return;
+  state.answered[qid] = chosen === correct;
+  const card = document.getElementById('card-' + qid);
+  const letters = ['A','B','C','D'];
+  card.querySelectorAll('.choice').forEach((el, i) => {
+    const ltr = letters[i];
+    if (ltr === correct) el.classList.add('reveal-correct');
+    if (ltr === chosen && chosen !== correct) el.classList.add('wrong');
+    if (ltr === correct && chosen === correct) { el.classList.remove('reveal-correct'); el.classList.add('correct'); }
+  });
+  const fb = document.getElementById('fb-' + qid);
+  fb.className = 'feedback show ' + (chosen === correct ? 'correct' : 'wrong');
+  fb.textContent = chosen === correct ? '✓ ' + mcFeedback[qid].correct : '✗ ' + mcFeedback[qid].wrong;
+  document.getElementById('btn-' + qid).disabled = true;
+  updateProgress();
+}
+
+// ── TRUE/FALSE ──────────────────────────────────────
+const tfFeedback = {
+  tf1: { correct: 'Tačno! Fiksni troškovi postoje čak i bez ijednog proizvoda – zakup, osiguranje, kamate se ne mogu izbeći.', wrong: 'Netačno. Fiksni troškovi se plaćaju bez obzira na obim – čak i ako je obim 0.' },
+  tf2: { correct: '', wrong: 'Netačno. Prosečni fiksni troškovi OPADAJU sa povećanjem obima. Isti ukupni iznos se deli na sve više jedinica.' },
+  tf3: { correct: 'Tačno! UT = UFT + UVT – ovo je osnovna formula.', wrong: 'Netačno. Ukupni troškovi = Fiksni + Varijabilni. To je osnovna formula.' },
+  tf4: { correct: '', wrong: 'Netačno. Troškovi materijala su VARIJABILNI – što više pravimo, više materijala treba i troši se.' },
+  tf5: { correct: 'Tačno! Profit = Ukupan prihod – Ukupni troškovi.', wrong: 'Netačno. Profit se dobija oduzimanjem ukupnih troškova od ukupnog prihoda.' },
+  tf6: { correct: '', wrong: 'Netačno. Ukupni fiksni troškovi OSTAJU ISTI (450.000 din.) bez obzira na promenu obima. Menjaju se samo prosečni fiksni troškovi po komadu.' },
+};
+
+function selectTF(qid, chosen, correct) {
+  if (state.answered[qid]) return;
+  const isCorrect = (chosen === correct);
+  state.answered[qid] = isCorrect;
+  const card = document.getElementById('card-' + qid);
+  const btns = card.querySelectorAll('.tf-btn');
+  btns.forEach((btn, i) => {
+    const val = i === 0 ? 'true' : 'false';
+    if (val === correct) btn.classList.add('correct');
+    if (val === chosen && !isCorrect) btn.classList.add('wrong');
+    btn.onclick = null;
+  });
+  const fb = document.getElementById('fb-' + qid);
+  fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+  fb.textContent = isCorrect ? '✓ ' + tfFeedback[qid].correct : '✗ ' + tfFeedback[qid].wrong;
+  updateProgress();
+}
+
+// ── F/V TOGGLE BUTTONS ──────────────────────────────
+const fvState = {};
+function toggleFV(id) {
+  if (state.answered['cl']) return;
+  const btn = document.getElementById(id);
+  const current = fvState[id] || null;
+  if (current === null) { fvState[id] = 'F'; btn.textContent = 'F'; btn.className = 'fv-btn chosen-F'; }
+  else if (current === 'F') { fvState[id] = 'V'; btn.textContent = 'V'; btn.className = 'fv-btn chosen-V'; }
+  else { fvState[id] = null; btn.textContent = '?'; btn.className = 'fv-btn'; }
+}
+
+// ── CLASSIFICATION ──────────────────────────────────
+const clAnswers = { cl1:'F', cl2:'V', cl3:'F', cl4:'V', cl5:'F', cl6:'V', cl7:'F', cl8:'V' };
+
+function checkClassification() {
+  if (state.answered['cl']) return;
+  // Check all answered
+  const allFilled = [1,2,3,4,5,6,7,8].every(i => fvState['cl'+i]);
+  if (!allFilled) { alert('Odaberi F ili V za sve troškove pre provere!'); return; }
+  let correct = 0;
+  for (let i = 1; i <= 8; i++) {
+    const btn = document.getElementById('cl' + i);
+    const ans = document.getElementById('clans' + i);
+    ans.style.display = 'table-cell';
+    const val = fvState['cl' + i];
+    if (val === clAnswers['cl' + i]) {
+      btn.className = 'fv-btn result-correct';
+      correct++;
+    } else {
+      btn.className = 'fv-btn result-wrong';
+    }
+  }
+  state.answered['cl'] = correct >= 6;
+  const fb = document.getElementById('fb-cl');
+  fb.className = 'feedback show ' + (correct >= 6 ? 'correct' : 'wrong');
+  fb.textContent = correct === 8 ? '✓ Bravo! Sve tačno! Odlično razumeš razliku između fiksnih i varijabilnih troškova.' :
+    `${correct >= 6 ? '✓ Dobro!' : '✗'} Tačnih: ${correct} od 8. Proveri pogrešne odgovore – tačni odgovori su prikazani u tabeli.`;
+  updateProgress();
+}
+
+// ── PROGRESS ────────────────────────────────────────
+function updateProgress() {
+  const total = Object.keys(state.answered).length;
+  const correct = Object.values(state.answered).filter(Boolean).length;
+  document.getElementById('progressScore').textContent = total + ' / ' + TOTAL_QUESTIONS + ' odgovoreno';
+  const pct = Math.round((total / TOTAL_QUESTIONS) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('sumCorrect').textContent = correct;
+  document.getElementById('sumTotal').textContent = total;
+  document.getElementById('sumPct').textContent = total > 0 ? Math.round((correct / total) * 100) + '%' : '—';
+}
+
+// ── RESENJE TOGGLE ──────────────────────────────────
+function toggleResenje(id) {
+  const box = document.getElementById(id);
+  const toggle = box.previousElementSibling;
+  const isOpen = box.classList.contains('show');
+  box.classList.toggle('show');
+  toggle.classList.toggle('open');
+  toggle.querySelector('span:not(.arrow)') && (toggle.querySelector('span:not(.arrow)').textContent = isOpen ? ' Prikaži rešenje' : ' Sakrij rešenje');
+  const txt = toggle.childNodes;
+  txt.forEach(n => { if (n.nodeType === 3) n.textContent = isOpen ? ' Prikaži rešenje' : ' Sakrij rešenje'; });
+}
+
+// ── FILL-IN CHECKS ──────────────────────────────────
+function normalize(s) { return s.toLowerCase().trim().replace(/[čć]/g,'c').replace(/[šs]/g,'s').replace(/[žz]/g,'z'); }
+
+function checkFill1() {
+  if (state.answered['fill1']) return;
+  const answers = [
+    { id: 'fi1a', correct: ['profit','zarada','dobitak','dobit','pozitivan'] },
+    { id: 'fi1b', correct: ['gubitak','deficit','negativan','minus','negativni','negativno'] },
+    { id: 'fi1c', correct: ['nula','nulti','pokriven','break even','ekonomska nula','finansijska nula','ni profit ni gubitak','pozitivna nula','nulto','nultu'] },
+  ];
+  let allCorrect = true;
+  answers.forEach(({id, correct}) => {
+    const inp = document.getElementById(id);
+    const val = normalize(inp.value);
+    const ok = correct.some(c => val.includes(normalize(c)));
+    inp.className = 'answer-input ' + (ok ? 'correct' : 'wrong');
+    inp.readOnly = true;
+    if (!ok) allCorrect = false;
+  });
+  state.answered['fill1'] = allCorrect;
+  const fb = document.getElementById('fb-fill1');
+  fb.className = 'feedback show ' + (allCorrect ? 'correct' : 'wrong');
+  fb.textContent = allCorrect
+    ? '✓ Odlično! Sva tri finansijska rezultata su tačna!'
+    : '✗ Nije sve tačno. Tačni odgovori: a) PROFIT (zarada/dobit), b) GUBITAK, c) POZITIVNA NULA (nulti rezultat – ni profit ni gubitak).';
+  updateProgress();
+}
+
+function checkFill2() {
+  if (state.answered['fill2']) return;
+  const answers = [
+    { id: 'fi2a', correct: ['q','kolicina','obim','količina'] },
+    { id: 'fi2b', correct: ['ft','uft','fiksni','fiksnit'] },
+    { id: 'fi2c', correct: ['q','kolicina','obim','količina'] },
+  ];
+  let allCorrect = true;
+  answers.forEach(({id, correct}) => {
+    const inp = document.getElementById(id);
+    const val = normalize(inp.value);
+    const ok = correct.some(c => val.includes(normalize(c)));
+    inp.className = 'answer-input ' + (ok ? 'correct' : 'wrong');
+    inp.readOnly = true;
+    if (!ok) allCorrect = false;
+  });
+  state.answered['fill2'] = allCorrect;
+  const fb = document.getElementById('fb-fill2');
+  fb.className = 'feedback show ' + (allCorrect ? 'correct' : 'wrong');
+  fb.textContent = allCorrect
+    ? '✓ Bravo! Formule su tačne: PUT = UT/Q,  PFT = FT/Q,  PVT = VT/Q'
+    : '✗ Nije sve tačno. Tačni odgovori: PUT = UT ÷ Q,  PFT = FT ÷ Q,  PVT = VT ÷ Q. Svuda se deli sa Q (obimom proizvodnje).';
+  updateProgress();
+}
+
+// ── ZADATAK 3: PROSEČNI FIKSNI TROŠKOVI ─────────────
+function checkZ3() {
+  const correct = { z3r1: 80, z3r2: 60, z3r3: 40, z3r4: 20 };
+  let score = 0;
+  for (const [id, val] of Object.entries(correct)) {
+    const inp = document.getElementById(id);
+    const entered = parseFloat(inp.value);
+    if (Math.abs(entered - val) < 0.5) {
+      inp.className = 'tbl-input tbl-correct';
+      score++;
+    } else {
+      inp.className = 'tbl-input tbl-wrong';
+      if (isNaN(entered)) inp.value = '';
+    }
+    inp.readOnly = true;
+  }
+  const fb = document.getElementById('fb-z3');
+  fb.className = 'feedback show ' + (score === 4 ? 'correct' : 'wrong');
+  if (score === 4) {
+    fb.textContent = '✓ Bravo! Sve tačno! Primetio/la si da PFT opada: 80 → 60 → 40 → 20 din./obroku.';
+  } else {
+    fb.innerHTML = `✗ Tačnih: ${score}/4. Podsetnik: PFT = UFT ÷ Q<br>
+    Januar: 48.000 ÷ 600 = <strong>80</strong> | Februar: 48.000 ÷ 800 = <strong>60</strong> |
+    Mart: 48.000 ÷ 1.200 = <strong>40</strong> | April: 48.000 ÷ 2.400 = <strong>20</strong>`;
+  }
+}
+
+// ── ZADATAK 4: MARGINALNI TROŠKOVI ──────────────────
+function checkZ4() {
+  const correct = { z4r1: 5500, z4r2: 3500, z4r3: 2500, z4r4: 3500, z4r5: 6000 };
+  let score = 0;
+  for (const [id, val] of Object.entries(correct)) {
+    const inp = document.getElementById(id);
+    const entered = parseFloat(inp.value);
+    if (Math.abs(entered - val) < 1) {
+      inp.className = 'tbl-input tbl-correct';
+      score++;
+    } else {
+      inp.className = 'tbl-input tbl-wrong';
+      if (isNaN(entered)) inp.value = '';
+    }
+    inp.readOnly = true;
+  }
+  const fb = document.getElementById('fb-z4');
+  fb.className = 'feedback show ' + (score === 5 ? 'correct' : 'wrong');
+  if (score === 5) {
+    fb.textContent = '✓ Odlično! Svi marginalni troškovi su tačni! Optimalni obim je 4 stolice – 5. stolica košta više nego što donosi.';
+  } else {
+    fb.innerHTML = `✗ Tačnih: ${score}/5. Podsetnik: MT = UT(n) − UT(n−1)<br>
+    1. st.: 17.500−12.000=<strong>5.500</strong> | 2. st.: 21.000−17.500=<strong>3.500</strong> |
+    3. st.: 23.500−21.000=<strong>2.500</strong> | 4. st.: 27.000−23.500=<strong>3.500</strong> |
+    5. st.: 33.000−27.000=<strong>6.000</strong>`;
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Save original onclick on all TF buttons for reset
+  document.querySelectorAll('.tf-btn').forEach(btn => {
+    btn.setAttribute('data-onclick', btn.getAttribute('onclick'));
+  });
+  // Disable autocomplete on all inputs to prevent browser restoring values
+  document.querySelectorAll('input').forEach(inp => {
+    inp.setAttribute('autocomplete', 'off');
+  });
+  updateProgress();
+});
+function resetAll() {
+  if (!confirm('Da li si sigurna da želiš da resetuješ sve odgovore?')) return;
+
+  // Reset JS state
+  Object.keys(state.selected).forEach(k => delete state.selected[k]);
+  Object.keys(state.answered).forEach(k => delete state.answered[k]);
+  Object.keys(fvState).forEach(k => delete fvState[k]);
+
+  // Reset MC choices
+  document.querySelectorAll('.choice').forEach(el => {
+    el.classList.remove('selected','correct','wrong','reveal-correct');
+  });
+  document.querySelectorAll('.check-btn').forEach(btn => {
+    btn.disabled = false;
+  });
+
+  // Reset TF buttons
+  document.querySelectorAll('.tf-btn').forEach(btn => {
+    btn.classList.remove('selected','correct','wrong');
+    const origOnclick = btn.getAttribute('data-onclick');
+    if (origOnclick) btn.setAttribute('onclick', origOnclick);
+  });
+
+  // Reset F/V buttons
+  ['cl1','cl2','cl3','cl4','cl5','cl6','cl7','cl8'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.textContent = '?';
+      btn.className = 'fv-btn';
+      btn.onclick = () => toggleFV(id);
+    }
+    const ans = document.getElementById(id.replace('cl','clans'));
+    if (ans) ans.style.display = 'none';
+  });
+
+  // Reset text inputs (fill-in)
+  ['fi1a','fi1b','fi1c','fi2a','fi2b','fi2c'].forEach(id => {
+    const inp = document.getElementById(id);
+    if (inp) { inp.value = ''; inp.className = 'answer-input'; inp.readOnly = false; }
+  });
+
+  // Reset table inputs
+  ['z3r1','z3r2','z3r3','z3r4','z4r1','z4r2','z4r3','z4r4','z4r5'].forEach(id => {
+    const inp = document.getElementById(id);
+    if (inp) { inp.value = ''; inp.className = 'tbl-input'; inp.readOnly = false; }
+  });
+
+  // Reset all feedback boxes
+  document.querySelectorAll('.feedback').forEach(el => {
+    el.className = 'feedback';
+    el.textContent = '';
+    el.innerHTML = '';
+  });
+
+  // Reset resenje boxes
+  document.querySelectorAll('.resenje-box').forEach(el => el.classList.remove('show'));
+  document.querySelectorAll('.resenje-toggle').forEach(el => el.classList.remove('open'));
+
+  // Update progress
+  updateProgress();
+}
+</script>
+</body>
+</html>

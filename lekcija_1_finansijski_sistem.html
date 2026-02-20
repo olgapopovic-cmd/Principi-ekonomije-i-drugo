@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekcija 1: Finansijski sistem i finansijske institucije</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .key-concept {
+            background: #f0f4ff;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .key-concept h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .diagram {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .box {
+            display: inline-block;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: white;
+            min-width: 200px;
+        }
+        
+        .box-green {
+            background: #10b981;
+        }
+        
+        .box-blue {
+            background: #3b82f6;
+        }
+        
+        .box-red {
+            background: #ef4444;
+        }
+        
+        .arrow {
+            font-size: 2em;
+            color: #667eea;
+            margin: 0 10px;
+        }
+        
+        .example {
+            background: #fff4e6;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .example h4 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+        
+        .quiz {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .quiz h3 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        
+        .question {
+            margin: 25px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .options label {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .options label:hover {
+            background: #e0e0e0;
+            transform: translateX(5px);
+        }
+        
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Lekcija 1</h1>
+            <h2>Finansijski sistem i finansijske institucije</h2>
+            <p>Osnove funkcije finansijskog sistema u privredi</p>
+        </div>
+        
+        <div class="content">
+            <!-- Uvod -->
+            <div class="section">
+                <h2>🎯 Šta je finansijski sistem?</h2>
+                <p>Zamislite da ste završili srednju školu i želite da otvorite svoju firmu. Potreban vam je novac za prostor, računare, informacione sisteme i zapošljavanje. Kako ćete doći do tog novca?</p>
+                
+                <p style="margin-top: 15px;">Možda imate ušteđevinu ili možete pozajmiti od roditelja. Ali mnogi ljudi počinju posao sa novcem koji dobijaju pozajmljivanjem. Ovde dolazi do izražaja <span class="highlight">finansijski sistem</span>.</p>
+                
+                <div class="key-concept">
+                    <h4>📌 Ključni pojam: Finansijski sistem</h4>
+                    <p><strong>Finansijski sistem</strong> je grupa institucija u privredi koja pomaže da se štednja jedne osobe može iskoristiti za investicije neke druge osobe.</p>
+                </div>
+            </div>
+            
+            <!-- Funkcija finansijskog sistema -->
+            <div class="section">
+                <h2>⚙️ Kako funkcioniše finansijski sistem?</h2>
+                
+                <p>Finansijski sistem omogućava:</p>
+                <ul>
+                    <li><strong>Mobilizaciju štednje</strong> – prikuplja slobodna novčana sredstva</li>
+                    <li><strong>Alokaciju resursa</strong> – usmerava sredstva tamo gde su najpotrebnija</li>
+                    <li><strong>Smanjenje rizika</strong> – kroz diverzifikaciju investicija</li>
+                    <li><strong>Omogućavanje razmene</strong> – olakšava kupovinu i prodaju</li>
+                </ul>
+                
+                <div class="example">
+                    <h4>💡 Primer iz prakse</h4>
+                    <p>Marko ima 100,000 dinara ušteđevine koja "spava" na računu. Ana želi da pokrene biznis ali nema kapital. Banka povezuje Marka i Anu:</p>
+                    <ul>
+                        <li>Marko polaže novac u banku → dobija kamatu</li>
+                        <li>Banka pozajmljuje novac Ani → naplaćuje višu kamatu</li>
+                        <li>Ana koristi novac za investiciju → vraća kredit sa kamatom</li>
+                        <li>Svi su dobili korist iz ove razmene!</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Finansijske institucije -->
+            <div class="section">
+                <h2>🏛️ Finansijske institucije</h2>
+                
+                <p>Postoje dve glavne kategorije finansijskih institucija:</p>
+                
+                <div class="diagram">
+                    <h3 style="color: #667eea; margin-bottom: 30px;">Podela finansijskih institucija</h3>
+                    
+                    <div class="box box-green">FINANSIJSKE INSTITUCIJE</div>
+                    
+                    <div style="margin: 20px 0;">
+                        <div class="arrow">↓</div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; gap: 50px; flex-wrap: wrap;">
+                        <div>
+                            <div class="box box-blue">Finansijska tržišta</div>
+                            <ul style="text-align: left; margin-top: 15px;">
+                                <li>Tržište akcija</li>
+                                <li>Tržište obveznica</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <div class="box box-red">Finansijski posrednici</div>
+                            <ul style="text-align: left; margin-top: 15px;">
+                                <li>Banke</li>
+                                <li>Investicioni fondovi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>1️⃣ Finansijska tržišta</h3>
+                <p>Institucije putem kojih štediše direktno nude sredstva osobama koje traže zajam.</p>
+                
+                <div class="key-concept">
+                    <h4>Tržište obveznica</h4>
+                    <p>Obveznica je potvrda o zadužnosti u kojoj su navedene obaveze zajmoprimca prema vlasniku obveznice. Sadrži informacije o:</p>
+                    <ul>
+                        <li><strong>Roku dospeća</strong> – kada se vraća glavnica</li>
+                        <li><strong>Kreditnom riziku</strong> – verovatnoća neplaćanja</li>
+                        <li><strong>Poreskom tretmanu</strong> – način oporezivanja</li>
+                    </ul>
+                </div>
+                
+                <div class="key-concept">
+                    <h4>Tržište akcija</h4>
+                    <p><strong>Akcija</strong> je hartija od vrednosti koja daje pravo vlasništvo nad delom preduzeća. Prodajom akcija preduzeće prikuplja kapital bez obaveze vraćanja.</p>
+                    <p style="margin-top: 10px;"><strong>Važno:</strong> Akcije su rizičnije od obveznica, ali mogu doneti veći profit kroz dividende i porast cene.</p>
+                </div>
+                
+                <h3>2️⃣ Finansijski posrednici</h3>
+                <p>Institucije putem kojih štediše indirektno nude sredstva onima koji traže zajam.</p>
+                
+                <div class="key-concept">
+                    <h4>Banke</h4>
+                    <p>Banke primaju depozite od onih koji žele da štede, a te depozite koriste za odobravanje kredita onima koji žele da dobiju zajam.</p>
+                    <p style="margin-top: 10px;"><strong>Funkcije banke:</strong></p>
+                    <ul>
+                        <li>Čuvanje novca i vođenje računa</li>
+                        <li>Omogućavanje plaćanja (čekovi, kartice)</li>
+                        <li>Kreditiranje (potrošački, stambeni krediti)</li>
+                    </ul>
+                </div>
+                
+                <div class="key-concept">
+                    <h4>Investicioni fondovi</h4>
+                    <p>Institucija koja prodaje akcije širokoj javnosti i tako dobijen novac koristi da kupi portfolio (skup) različitih vrsta akcija i/ili obveznica.</p>
+                    <p style="margin-top: 10px;"><strong>Prednost:</strong> Diverzifikacija rizika – umesto jedne akcije, imate deo mnogih kompanija!</p>
+                </div>
+            </div>
+            
+            <!-- Interaktivni kviz -->
+            <div class="quiz">
+                <h3>🎓 Proveri svoje znanje!</h3>
+                
+                <div class="question">
+                    <p>1. Šta je osnovna funkcija finansijskog sistema?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="a"> Kontrola inflacije</label>
+                        <label><input type="radio" name="q1" value="b"> Povezivanje štediša i investitora</label>
+                        <label><input type="radio" name="q1" value="c"> Štampanje novca</label>
+                        <label><input type="radio" name="q1" value="d"> Određivanje poreza</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q1', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>2. Koja je razlika između akcije i obveznice?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a"> Akcija je dug, obveznica je vlasništvo</label>
+                        <label><input type="radio" name="q2" value="b"> Akcija je vlasništvo, obveznica je dug</label>
+                        <label><input type="radio" name="q2" value="c"> Nema razlike</label>
+                        <label><input type="radio" name="q2" value="d"> Obveznice su rizičnije od akcija</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q2', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>3. Koji od sledećih nije finansijski posrednik?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a"> Banka</label>
+                        <label><input type="radio" name="q3" value="b"> Investicioni fond</label>
+                        <label><input type="radio" name="q3" value="c"> Berza</label>
+                        <label><input type="radio" name="q3" value="d"> Osiguravajuća kuća</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q3', 'c', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>4. Zbog čega ljudi koriste investicione fondove?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="a"> Garantovan prihod</label>
+                        <label><input type="radio" name="q4" value="b"> Diverzifikacija rizika</label>
+                        <label><input type="radio" name="q4" value="c"> Potpuno eliminisan rizik</label>
+                        <label><input type="radio" name="q4" value="d"> Besplatno ulaganje</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q4', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>5. Koje su dve glavne kategorije finansijskih institucija?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="a"> Privatne i državne</label>
+                        <label><input type="radio" name="q5" value="b"> Domaće i strane</label>
+                        <label><input type="radio" name="q5" value="c"> Finansijska tržišta i finansijski posrednici</label>
+                        <label><input type="radio" name="q5" value="d"> Velike i male</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q5', 'c', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>6. Na tržištu obveznica, ko je zajmoprimac?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="a"> Vlasnik obveznice</label>
+                        <label><input type="radio" name="q6" value="b"> Emitent obveznice (kompanija ili država)</label>
+                        <label><input type="radio" name="q6" value="c"> Banka</label>
+                        <label><input type="radio" name="q6" value="d"> Berza</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q6', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>7. Šta dobijaju vlasnici akcija od kompanije?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="a"> Fiksnu kamatu</label>
+                        <label><input type="radio" name="q7" value="b"> Samo dividende</label>
+                        <label><input type="radio" name="q7" value="c"> Dividende i deo vlasništva (pravo glasa)</label>
+                        <label><input type="radio" name="q7" value="d"> Ništa</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q7', 'c', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>8. Koje institucije omogućavaju direktan prenos sredstava od štediša ka zajmoprimcima?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="a"> Banke</label>
+                        <label><input type="radio" name="q8" value="b"> Investicioni fondovi</label>
+                        <label><input type="radio" name="q8" value="c"> Finansijska tržišta (tržište akcija i obveznica)</label>
+                        <label><input type="radio" name="q8" value="d"> Osiguravajuće kuće</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q8', 'c', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+            
+            <!-- Zaključak -->
+            <div class="section">
+                <h2>📝 Zaključak</h2>
+                <p>Finansijski sistem je ključan za funkcionisanje moderne privrede. Kroz finansijska tržišta i finansijske posrednike, sredstva se prenose od onih koji štede ka onima koji žele da investiraju.</p>
+                
+                <div style="background: #f0f4ff; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h4 style="color: #667eea;">Ključne tačke za pamćenje:</h4>
+                    <ul>
+                        <li>Finansijski sistem povezuje štediše i investitore</li>
+                        <li>Finansijska tržišta omogućavaju direktan transfer sredstava</li>
+                        <li>Finansijski posrednici omogućavaju indirektan transfer</li>
+                        <li>Obveznice su dug, akcije su vlasništvo</li>
+                        <li>Banke i investicioni fondovi su najvažniji posrednici</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function checkAnswer(questionName, correctAnswer, button) {
+            const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+            const feedbackDiv = button.nextElementSibling;
+            
+            if (!selectedOption) {
+                alert('Molimo izaberite odgovor!');
+                return;
+            }
+            
+            feedbackDiv.style.display = 'block';
+            
+            if (selectedOption.value === correctAnswer) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = '✅ Tačno! Odličan odgovor!';
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = '❌ Nije tačno. Vrati se u lekciju i pročitaj ponovo.';
+            }
+        }
+    </script>
+</body>
+</html>

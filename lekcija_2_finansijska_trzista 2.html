@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekcija 2: Finansijska tržišta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #f5576c;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f5576c;
+        }
+        
+        .section h3 {
+            color: #f093fb;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .key-concept {
+            background: #fff0f6;
+            border-left: 5px solid #f5576c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .key-concept h4 {
+            color: #f5576c;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: #f5576c;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .comparison-table tr:hover {
+            background: #fff0f6;
+        }
+        
+        .example {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .example h4 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .info-box h4 {
+            color: #2196f3;
+            margin-bottom: 10px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box h4 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+        
+        .interactive-activity {
+            background: #f3e5f5;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .interactive-activity h3 {
+            color: #9c27b0;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .card h4 {
+            color: #f5576c;
+            margin-bottom: 10px;
+        }
+        
+        .quiz {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .quiz h3 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        
+        .question {
+            margin: 25px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .options label {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .options label:hover {
+            background: #e0e0e0;
+            transform: translateX(5px);
+        }
+        
+        .options input[type="radio"],
+        .options input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        .btn {
+            background: #f5576c;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        
+        .btn:hover {
+            background: #f093fb;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .formula {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            border: 2px dashed #f5576c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 Lekcija 2</h1>
+            <h2>Finansijska tržišta</h2>
+            <p>Tržište obveznica i tržište akcija</p>
+        </div>
+        
+        <div class="content">
+            <!-- Uvod -->
+            <div class="section">
+                <h2>🎯 Šta su finansijska tržišta?</h2>
+                <p>Pretpostavimo da kompanija "Fijat" želi da izgradi novu fabriku za proizvodnju automobila, ali nema dovoljno sopstvenih sredstava. Ima dva načina da prikupi novac direktno od štediša:</p>
+                
+                <ol>
+                    <li><strong>Prodaja obveznica</strong> – pozajmljivanje novca uz obavezu vraćanja</li>
+                    <li><strong>Prodaja akcija</strong> – prodaja dela vlasništva nad kompanijom</li>
+                </ol>
+                
+                <div class="key-concept">
+                    <h4>📌 Ključni pojam</h4>
+                    <p><strong>Finansijska tržišta</strong> su institucije putem kojih štediše direktno nude sredstva osobama koje traže zajam, bez posrednika.</p>
+                </div>
+            </div>
+            
+            <!-- Tržište obveznica -->
+            <div class="section">
+                <h2>💼 Tržište obveznica</h2>
+                
+                <div class="key-concept">
+                    <h4>Šta je obveznica?</h4>
+                    <p><strong>Obveznica</strong> je potvrda o zadužnosti u kojoj su navedene obaveze zajmoprimca prema vlasniku obveznice. Obveznice predstavljaju način finansiranja kroz dug.</p>
+                </div>
+                
+                <h3>Tri ključne karakteristike obveznica:</h3>
+                
+                <div class="card">
+                    <h4>1️⃣ Rok dospeća</h4>
+                    <p><strong>Rok dospeća</strong> predstavlja vremenski period nakon kojeg obveznica dospeva.</p>
+                    <p style="margin-top: 10px;">Neki primeri:</p>
+                    <ul>
+                        <li><strong>Kratkoročne</strong>: dospeće do 1 godine (npr. državne zapise)</li>
+                        <li><strong>Srednjeročne</strong>: dospeće između 1-10 godina</li>
+                        <li><strong>Dugoročne</strong>: dospeće preko 10 godina (čak i do 30 godina)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>2️⃣ Kreditni rizik</h4>
+                    <p><strong>Kreditni rizik</strong> je verovatnoća da pozajmljivač neće isplatiti deo ili celu kamatu ili glavnicu. U razvijenim zemljama uglavnom postoje privatne agencije koje izdaju izveštaje o proceni KREDITNOG RIZIKA za različite vrste obveznica koje emituju preduzeća ili država a što pomaže kupcima da procene da li da kupe ili ne neku obveznicu.</p>
+                    <p style="margin-top: 10px;">Zbog toga obveznice imaju različit rizik:</p>
+                    <ul>
+                        <li><strong>Niskorizične</strong>: državne obveznice </li>
+                        <li><strong>Visokorizične</strong>: korporacijske obveznice finansijski slabih kompanija</li>
+                    </ul>
+                    <p style="margin-top: 10px; color: #f5576c; font-weight: bold;">⚠️ Što je viši rizik, viša je i kamatna stopa!</p>
+                </div>
+                
+                <div class="card">
+                    <h4>3️⃣ Poreski tretman</h4>
+                    <p><strong>Poreski tretman</strong> odnosi se na način na koji se oporezuje kamata obveznice.</p>
+                    <p style="margin-top: 10px;">Država može oporezivati prihod od kamata po različitim stopama, što utiče na privlačnost obveznice.Vlasnici obveznica koje izdaje država obično ne plaćaju porez na dohodak. Zbog toga su kamatne stope na obveznice države niže od kamatnih stopa obveznica koje izdaju preduzeća.</p>
+                </div>
+                
+                <div class="example">
+                    <h4>💡 Primer: Kupovina obveznice</h4>
+                    <p><strong>Situacija:</strong> Fijat je izdao obveznicu vrednu 5,000 € sa dospećem za 5 godina i kamatom od 4%.</p>
+                    <p style="margin-top: 10px;"><strong>To znači:</strong></p>
+                    <ul>
+                        <li>Kupujete obveznicu za 5,000 €</li>
+                        <li>Svake godine dobijate 4% × 5,000 € = 200 € kamate</li>
+                        <li>Posle 5 godina dobijate nazad 5,000 € glavnice</li>
+                        <li><strong>Ukupan prihod:</strong> 5 × 200 € + 5,000 € = 6,000 €</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Tržište akcija -->
+            <div class="section">
+                <h2>📊 Tržište akcija</h2>
+                
+                <div class="key-concept">
+                    <h4>Šta je akcija?</h4>
+                    <p><strong>Akcija</strong> je hartija od vrednosti koja daje pravo vlasništva nad delom preduzeća - učešću u vlasništvu (proporcionalno broju akcija koje poseduje).</p>
+                </div>
+                
+                <h3>Kako funkcionišu akcije?</h3>
+                
+                <p>Ako "Fijat" želi da izgradi novu fabriku, može da izda obveznice ili može da proda akcije svoje kompanije:</p>
+                
+                <div class="info-box">
+                    <h4>Finansiranje kroz akcije (equity financing)</h4>
+                    <p>Prodaja akcija se naziva <strong>finansiranje kapitalom</strong> ili <strong>dokapitalizacija</strong>.</p>
+                    <p style="margin-top: 10px;">Vlasnici akcija imaju pravo na:</p>
+                    <ul>
+                        <li><strong>Dividende</strong> – deo profita koji kompanija deli vlasnicima. Što je veći profit kompanije, veća je i dividenda. Ako kompanija ne ostvari profit onda je i prihod od akcije mali ili ga nema. To je razlika u odnosu na posedovanje obveznice koju je izdalo neko preduzeće jer kamata se vlasniku mora isplatiti.</li>
+                        <li><strong>Glasačko pravo</strong> – učestvovanje u odlučivanju</li>
+                        <li><strong>Ostatak profita</strong> – ako kompanija raste, cena njenih akcije raste pa se na berzi na kojoj se trguje akcijama može ostvariti dodatni profit. Cena neke akcije zavisi od odnosa PONUDE i TRAŽNJE za tim akcijama. To već znamo... ako je tražnja za akcijama veća od ponude, onda cena akcije...</li>
+                    </ul>
+                </div>
+                
+                <div class="example">
+                    <h4>💡 Primer: Prodaja akcija kompanije "Fijat"</h4>
+                    <p>Ako "Fijat" proda 1,000 akcija, svaka akcija predstavlja 1/1,000 dela vlasništva nad preduzećem.</p>
+                    <p style="margin-top: 10px;"><strong>Primer sa profitom:</strong></p>
+                    <ul>
+                        <li>Ako kompanija zaradi 100,000 € godišnje</li>
+                        <li>I odluči da isplati 50,000 € kao dividende</li>
+                        <li>Vlasnik 100 akcija dobija: (100/1,000) × 50,000 € = 5,000 €</li>
+                    </ul>
+                </div>
+                
+                <h3>Razlika između akcija i obveznica</h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Karakteristika</th>
+                            <th>Obveznice</th>
+                            <th>Akcije</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tip prava</strong></td>
+                            <td>Dug (pozajmica)</td>
+                            <td>Vlasništvo (equity)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prihod</strong></td>
+                            <td>Fiksna kamata</td>
+                            <td>Dividende (promenljive)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rizik</strong></td>
+                            <td>Niži rizik</td>
+                            <td>Viši rizik</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Povraćaj</strong></td>
+                            <td>Garantovan (uz rizik)</td>
+                            <td>Zavisi od profita</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dospeće</strong></td>
+                            <td>Ima rok dospeća</td>
+                            <td>Nema roka</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glasačka prava</strong></td>
+                            <td>Nema</td>
+                            <td>Ima</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Važno razumevanje</h4>
+                    <p>Akcije su <span class="highlight">rizičnije</span>, ali potencijalno <span class="highlight">profitabilnije</span>!</p>
+                    <p style="margin-top: 10px;">Ako kompanija propada:</p>
+                    <ul>
+                        <li>Vlasnici obveznica se isplaćuju <strong>prvi</strong></li>
+                        <li>Vlasnici akcija dobijaju ono što <strong>preostane</strong> (ako išta)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Berze -->
+            <div class="section">
+                <h2>🏛️ Berze - gde se trguje?</h2>
+                
+                <p>Cena po kojoj se akcije neke kompanije kupuju i prodaju na berzama određuje se snagom ponude i tražnje, slično kao i na tržištima bilo koje druge robe ili usluge.</p>
+                
+                <div class="info-box">
+                    <h4>Najpoznatije berze u svetu</h4>
+                    <ul>
+                        <li><strong>NYSE</strong> (New York Stock Exchange) – Njujorška berza, Amerika</li>
+                        <li><strong>NASDAQ</strong> – Američka berza (tehnološke kompanije)</li>
+                        <li><strong>LSE</strong> (London Stock Exchange) – Londonska berza</li>
+                        <li><strong>TSE</strong> (Tokyo Stock Exchange) – Tokijska berza</li>
+                        <li><strong>BELEX</strong> – Beogradska berza (Srbija)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>Berzanski indeksi</h4>
+                    <p><strong>Berzanski indeks</strong> je pokazatelj kretanja cena akcija na određenoj berzi.</p>
+                    <p style="margin-top: 10px;">Najpoznatiji indeksi:</p>
+                    <ul>
+                        <li><strong>Dow Jones Industrial Average (DJIA)</strong> – 30 najvećih američkih kompanija</li>
+                        <li><strong>S&P 500</strong> – 500 kompanija na američkim berzama</li>
+                        <li><strong>FTSE 100</strong> – indeks Londonske berze</li>
+                        <li><strong>BELEX15 i BELEXline</strong> – indeksi Beogradske berze</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Interaktivna aktivnost -->
+            <div class="interactive-activity">
+                <h3>🎮 Interaktivna aktivnost: Investiciona odluka</h3>
+                <p>Imate 10,000 € za investiranje. Razmotrite sledeće opcije:</p>
+                
+                <div class="card" onclick="toggleDetails('option1')">
+                    <h4>Opcija 1: Državne obveznice</h4>
+                    <p>Kamata: 3% godišnje, rok: 5 godina, vrlo nizak rizik</p>
+                    <div id="option1" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 2px solid #f0f0f0;">
+                        <p><strong>Analiza:</strong></p>
+                        <ul>
+                            <li>Godišnji prihod: 10,000 × 3% = 300 €</li>
+                            <li>Ukupan prihod za 5 god: 5 × 300 = 1,500 €</li>
+                            <li>Ukupno na kraju: 11,500 €</li>
+                            <li><strong>Prednost:</strong> Siguran prihod</li>
+                            <li><strong>Mana:</strong> Manji profit</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleDetails('option2')">
+                    <h4>Opcija 2: Korporacijske obveznice</h4>
+                    <p>Kamata: 6% godišnje, rok: 5 godina, srednji rizik</p>
+                    <div id="option2" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 2px solid #f0f0f0;">
+                        <p><strong>Analiza:</strong></p>
+                        <ul>
+                            <li>Godišnji prihod: 10,000 × 6% = 600 €</li>
+                            <li>Ukupan prihod za 5 god: 5 × 600 = 3,000 €</li>
+                            <li>Ukupno na kraju: 13,000 €</li>
+                            <li><strong>Prednost:</strong> Veći prihod od državnih</li>
+                            <li><strong>Mana:</strong> Postoji rizik da firma ne plati</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" onclick="toggleDetails('option3')">
+                    <h4>Opcija 3: Akcije tehnološke kompanije</h4>
+                    <p>Očekivane dividende: 2%, mogući rast cene: 10-15% godišnje, visok rizik</p>
+                    <div id="option3" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 2px solid #f0f0f0;">
+                        <p><strong>Analiza:</strong></p>
+                        <ul>
+                            <li>Godišnje dividende: 10,000 × 2% = 200 €</li>
+                            <li>Moguć rast vrednosti: 10,000 × (1.12)^5 ≈ 17,600 €</li>
+                            <li>Ukupno na kraju (optimistički): ~17,800 €</li>
+                            <li><strong>Prednost:</strong> Najviši potencijalni profit</li>
+                            <li><strong>Mana:</strong> Može i da izgubite novac!</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; font-style: italic; color: #666;">Kliknite na svaku opciju da vidite detaljnu analizu!</p>
+            </div>
+            
+            <!-- Kviz -->
+            <div class="quiz">
+                <h3>🎓 Proveri svoje znanje!</h3>
+                
+                <div class="question">
+                    <p>1. Koje su tri ključne karakteristike obveznica?</p>
+                    <div class="options">
+                        <label><input type="checkbox" name="q1" value="a"> Rok dospeća</label>
+                        <label><input type="checkbox" name="q1" value="b"> Kreditni rizik</label>
+                        <label><input type="checkbox" name="q1" value="c"> Poreski tretman</label>
+                        <label><input type="checkbox" name="q1" value="d"> Dividende</label>
+                    </div>
+                    <button class="btn" onclick="checkMultiple('q1', ['a','b','c'], this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>2. Šta dobijaju vlasnici akcija?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a"> Fiksnu kamatu</label>
+                        <label><input type="radio" name="q2" value="b"> Dividende i deo vlasništva</label>
+                        <label><input type="radio" name="q2" value="c"> Garantovan povraćaj</label>
+                        <label><input type="radio" name="q2" value="d"> Ništa od navedenog</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q2', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>3. Koja investicija je rizičnija?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a"> Obveznice</label>
+                        <label><input type="radio" name="q3" value="b"> Akcije</label>
+                        <label><input type="radio" name="q3" value="c"> Podjednako su rizične</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q3', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>4. <strong>RAČUNSKI ZADATAK:</strong> Ako kupite obveznicu od 5,000€ sa kamatom 4% i rokom 3 godine, koliki će biti ukupan prihod (glavnica + kamate)?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="a"> 5,200 €</label>
+                        <label><input type="radio" name="q4" value="b"> 5,600 €</label>
+                        <label><input type="radio" name="q4" value="c"> 6,000 €</label>
+                        <label><input type="radio" name="q4" value="d"> 6,200 €</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q4', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>5. Koja obveznica OBIČNO nudi višu kamatnu stopu?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="a"> Državna obveznica</label>
+                        <label><input type="radio" name="q5" value="b"> Korporacijska obveznica visokorizične kompanije</label>
+                        <label><input type="radio" name="q5" value="c"> Imaju istu kamatnu stopu</label>
+                        <label><input type="radio" name="q5" value="d"> Zavisi od inflacije</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q5', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>6. <strong>RAČUNSKI ZADATAK:</strong> Kompanija ima 1,000 akcija i ostvarila profit od 50,000€. Ako odluči da isplati 60% profita kao dividende, koliko će dobiti vlasnik 100 akcija?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="a"> 2,000 €</label>
+                        <label><input type="radio" name="q6" value="b"> 3,000 €</label>
+                        <label><input type="radio" name="q6" value="c"> 4,000 €</label>
+                        <label><input type="radio" name="q6" value="d"> 5,000 €</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q6', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>7. Šta se dešava sa vlasnicima akcija ako kompanija propadne?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="a"> Dobijaju svoj novac prvi</label>
+                        <label><input type="radio" name="q7" value="b"> Dobijaju ono što preostane posle isplate vlasnika obveznica</label>
+                        <label><input type="radio" name="q7" value="c"> Automatski dobijaju punu naknadu</label>
+                        <label><input type="radio" name="q7" value="d"> Država im vraća novac</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q7', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>8. <strong>RAČUNSKI ZADATAK:</strong> Imate obveznicu od 10,000€ sa godišnjom kamatom od 5%. Koliko kamate ćete dobiti za 5 godina?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="a"> 500 €</label>
+                        <label><input type="radio" name="q8" value="b"> 1,500 €</label>
+                        <label><input type="radio" name="q8" value="c"> 2,500 €</label>
+                        <label><input type="radio" name="q8" value="d"> 5,000 €</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q8', 'c', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <p>9. Koji berzanski indeks prati 500 kompanija na američkim berzama?</p>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="a"> Dow Jones Industrial Average</label>
+                        <label><input type="radio" name="q9" value="b"> S&P 500</label>
+                        <label><input type="radio" name="q9" value="c"> FTSE 100</label>
+                        <label><input type="radio" name="q9" value="d"> BELEX15</label>
+                    </div>
+                    <button class="btn" onclick="checkAnswer('q9', 'b', this)">Proveri odgovor</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+            
+            <!-- Zaključak -->
+            <div class="section">
+                <h2>📝 Zaključak</h2>
+                <p>Finansijska tržišta omogućavaju direktan prenos sredstava od štediša ka investitorima. Razumevanje razlike između obveznica i akcija ključno je za donošenje pametnih investicionih odluka.</p>
+                
+                <div style="background: #fff0f6; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h4 style="color: #f5576c;">Ključne tačke za pamćenje:</h4>
+                    <ul>
+                        <li>Obveznice = DUG (pozajmljujete novac kompaniji)</li>
+                        <li>Akcije = VLASNIŠTVO (kupujete deo kompanije)</li>
+                        <li>Obveznice su sigurnije, akcije profitabilnije (ali rizičnije)</li>
+                        <li>Tri karakteristike obveznica: rok dospeća, kreditni rizik, poreski tretman</li>
+                        <li>Berze omogućavaju trgovinu akcijama</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === 'none') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+        
+        function checkAnswer(questionName, correctAnswer, button) {
+            const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+            const feedbackDiv = button.nextElementSibling;
+            
+            if (!selectedOption) {
+                alert('Molimo izaberite odgovor!');
+                return;
+            }
+            
+            feedbackDiv.style.display = 'block';
+            
+            if (selectedOption.value === correctAnswer) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = '✅ Tačno! Odličan odgovor!';
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = '❌ Nije tačno. Vrati se u lekciju i pročitaj ponovo.';
+            }
+        }
+        
+        function checkMultiple(questionName, correctAnswers, button) {
+            const selectedOptions = document.querySelectorAll(`input[name="${questionName}"]:checked`);
+            const feedbackDiv = button.nextElementSibling;
+            
+            if (selectedOptions.length === 0) {
+                alert('Molimo izaberite odgovor!');
+                return;
+            }
+            
+            const selectedValues = Array.from(selectedOptions).map(opt => opt.value).sort();
+            const correct = correctAnswers.sort();
+            
+            feedbackDiv.style.display = 'block';
+            
+            if (JSON.stringify(selectedValues) === JSON.stringify(correct)) {
+                feedbackDiv.className = 'feedback correct';
+                feedbackDiv.innerHTML = '✅ Tačno! Odličan odgovor!';
+            } else {
+                feedbackDiv.className = 'feedback incorrect';
+                feedbackDiv.innerHTML = '❌ Nije tačno. Vrati se u lekciju i pročitaj ponovo.';
+            }
+        }
+    </script>
+</body>
+</html>
