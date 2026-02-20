@@ -1,78 +1,235 @@
-<!DOCTYPE html>
 <html lang="sr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Економија - Лекције</title>
+    <title>Принципи економије - Лекције</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
         .container {
+            max-width: 1000px;
+            margin: 0 auto;
             background: white;
-            padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
-        h1 {
-            color: #667eea;
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
             text-align: center;
-            margin-bottom: 30px;
         }
-        .subject {
-            margin: 30px 0;
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        .subject h2 {
-            color: #764ba2;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
         }
-        .lesson-list {
-            list-style: none;
-            padding: 0;
+        
+        .content {
+            padding: 40px;
         }
-        .lesson-list li {
-            margin: 10px 0;
+        
+        .subject-section {
+            margin-bottom: 50px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        .lesson-list a {
-            display: block;
-            padding: 15px;
-            background: #f0f4ff;
+        
+        .subject-section h2 {
             color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #764ba2;
+        }
+        
+        .subject-info {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .lesson-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .lesson-card h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .lesson-card a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             text-decoration: none;
             border-radius: 8px;
+            font-weight: bold;
             transition: all 0.3s;
+            margin-top: 10px;
         }
-        .lesson-list a:hover {
-            background: #667eea;
-            color: white;
-            transform: translateX(10px);
+        
+        .lesson-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        @media (max-width: 768px) {
+            .lesson-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📚 Економија - Лекције</h1>
-        
-        <div class="subject">
-            <h2>Финансијски систем</h2>
-            <ul class="lesson-list">
-                <li><a href="lekcija_1_finansijski_sistem.html">Лекција 1: Финансијски систем и финансијске институције</a></li>
-                <li><a href="lekcija_2_finansijska_trzista.html">Лекција 2: Финансијска тржишта</a></li>
-                <li><a href="lekcija_3_finansijski_posrednici.html">Лекција 3: Финансијски посредници</a></li>
-                <li><a href="lekcija_4_stednja_investicije.html">Лекција 4: Штедња и инвестиције</a></li>
-                <li><a href="lekcija_5_trziste_zajmovnih_sredstava.html">Лекција 5: Тржиште зајмовних средстава</a></li>
-                <li><a href="lekcija_6_drzavna_politika.html">Лекција 6: Утицај државне политике</a></li>
-                <li><a href="lekcija_ilustracije_obveznice_akcije.html">Илустрације: Обвезнице и акције</a></li>
-            </ul>
+        <div class="header">
+            <h1>📚 Принципи економије</h1>
+            <p>Интерактивне лекције за све разреде</p>
         </div>
         
-        <!-- Овде додај друга поглавља/предмете -->
+        <div class="content">
+            <!-- ПРЕДМЕТ 1: FRT2 -->
+            <div class="subject-section">
+                <h2>📊 Principi ekonomije - FRT2</h2>
+                <p class="subject-info">Финансијски систем и тржишта</p>
+                
+                <div class="lesson-grid">
+                    <div class="lesson-card">
+                        <h3>Лекција 1</h3>
+                        <p>Финансијски систем и финансијске институције</p>
+                        <a href="lekcija_1_finansijski_sistem.html">Отвори лекцију →</a>
+                    </div>
+                    
+                    <div class="lesson-card">
+                        <h3>Лекција 2</h3>
+                        <p>Финансијска тржишта - Обвезнице и акције</p>
+                        <a href="lekcija_2_finansijska_trzista.html">Отвори лекцију →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ПРЕДМЕТ 2: ET2 -->
+            <div class="subject-section">
+                <h2>💼 Principi ekonomije - ET2</h2>
+                <p class="subject-info">Велика криза и макроекономија</p>
+                
+                <div class="lesson-grid">
+                    <div class="lesson-card">
+                        <h3>Лекција 1</h3>
+                        <p>Велика криза - историјски контекст и узроци</p>
+                        <a href="velika_kriza.html">Отвори лекцију →</a>
+                    </div>
+                    
+                    <div class="lesson-card">
+                        <h3>Лекција 2</h3>
+                        <p>Кејнз и макроекономија</p>
+                        <a href="kejnz_makroekonomija.html">Отвори лекцију →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ПРЕДМЕТ 3: FRT1 -->
+            <div class="subject-section">
+                <h2>📝 Principi ekonomije - FRT1</h2>
+                <p class="subject-info">Радни листови и вежбе</p>
+                
+                <div class="lesson-grid">
+                    <div class="lesson-card">
+                        <h3>Радни лист</h3>
+                        <p>Трошкови производње - вежбе и задаци</p>
+                        <a href="troskovi_radni_list_v3.html">Отвори радни лист →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         
+        <div class="footer">
+            <p>💜 Принципи економије - Школска 2024/2025 | Припремила: Проф. Олга Поповић</p>
+        </div>
     </div>
 </body>
 </html>
+```
+
+---
+
+## 🔧 **ШТА ТРЕБА ДА УРАДИШ:**
+
+### **Корак 1: Замени index.html**
+1. Иди у репозиторијум: https://github.com/olgapopovic-cmd/Principi-ekonomije-i-drugo
+2. Кликни на `index.html` (ако постоји)
+3. Кликни на **иконицу оловке** (Edit)
+4. **Обриши све** и налепи горњи код
+5. **Commit changes**
+
+(Ако `index.html` не постоји, кликни **Add file** → **Create new file** → назови га `index.html`)
+
+### **Корак 2: Провери имена фајлова**
+Провери да ли су имена HTML фајлова у репозиторијуму **тачно иста** као у коду:
+- `lekcija_1_finansijski_sistem.html`
+- `lekcija_2_finansijska_trzista.html`
+- `velika_kriza.html`
+- `kejnz_makroekonomija.html`
+- `troskovi_radni_list_v3.html`
+
+Ако су имена другачија, **промени их** или промени имена у `index.html` коду.
+
+### **Корак 3: Тестирај**
+Отвори:
+```
+https://olgapopovic-cmd.github.io/Principi-ekonomije-i-drugo/
