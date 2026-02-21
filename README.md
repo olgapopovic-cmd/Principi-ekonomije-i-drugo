@@ -1,1 +1,1 @@
-# Principi-ekonomije-i-drugo
+# Principi-ekonomije
